@@ -1,0 +1,15 @@
+.ingredients__section {
+    max-width: 600px;
+}
+
+.ingredients__menu {
+    display: flex;
+}
+
+.ingredients__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    overflow-y: auto;
+    max-height: 50vh;
+}
