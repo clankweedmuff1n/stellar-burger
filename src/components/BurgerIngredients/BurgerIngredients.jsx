@@ -23,15 +23,11 @@ function BurgerIngredients() {
             </div>
             <ul className={`${burgerIngredientsStyles.ingredients__list} custom-scroll`}>
                 {categories.map(category => (
-                    <IngredientsList category={category}/>
+                    <IngredientsList key={category.name} category={category}/>
                 ))}
             </ul>
         </section>
     )
-}
-
-BurgerIngredients.propTypes = {
-    category: PropTypes.objectOf(PropTypes.arrayOf(categories.isRequired))
 }
 
 export default BurgerIngredients;

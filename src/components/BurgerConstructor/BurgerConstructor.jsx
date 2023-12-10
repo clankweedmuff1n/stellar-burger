@@ -18,10 +18,12 @@ function BurgerConstructor() {
 
                 <ul className={`${stylesConstructor.constructor__list} custom-scroll`}>
                     {data.map((item) => {
+                        if (item.type !== "bun") {
                             return (
-                                <li className={`${stylesConstructor.constructor__item} mt-4 pr-5`}>
+                                <li key={item._id} className={`${stylesConstructor.constructor__item} mt-4 pr-5`}>
                                     <DragIcon/>
                                     <ConstructorElement
+                                        key={item._id}
                                         text={item.name}
                                         price={item.price}
                                         thumbnail={item.image}
@@ -29,7 +31,7 @@ function BurgerConstructor() {
                                 </li>
                             )
                         }
-                    )}
+                    })}
                 </ul>
 
                 <ConstructorElement
@@ -45,7 +47,7 @@ function BurgerConstructor() {
                     <p className='text text_type_digits-medium mr2'>10000</p>
                     <CurrencyIcon/>
                 </div>
-                <Button type='primary' size='large'>Оформить заказ</Button>
+                <Button htmlType={"button"} type='primary' size='large'>Оформить заказ</Button>
             </div>
         </section>
     )

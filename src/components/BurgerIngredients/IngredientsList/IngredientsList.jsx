@@ -17,13 +17,9 @@ function IngredientsList(props) {
         </li>
     )
 }
+
 IngredientsList.propTypes = {
     category: PropTypes.object.isRequired,
-    data: PropTypes.objectOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-    }))
-
 }
 
 export default IngredientsList;
