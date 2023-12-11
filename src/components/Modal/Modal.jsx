@@ -7,13 +7,12 @@ import PropTypes from 'prop-types';
 
 
 function Modal({children, onCloseModal}) {
-    function handleEscClose(e) {
-        if (e.key  === 'Escape') {
-            onCloseModal(e);
-        }
-    }
-
     React.useEffect(() => {
+        function handleEscClose(e) {
+            if (e.key  === 'Escape') {
+                onCloseModal(e);
+            }
+        }
         document.addEventListener('keydown', handleEscClose);
 
         return () => {
@@ -38,7 +37,7 @@ function Modal({children, onCloseModal}) {
                 </div>
                 <ModalOverlay onCloseModal={onCloseModal}/>
             </>
-        ), document.getElementById('root'))
+        ), document.getElementById('modals'))
         : null;
 }
 

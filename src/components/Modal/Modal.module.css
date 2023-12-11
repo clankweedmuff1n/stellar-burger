@@ -1,8 +1,8 @@
 .modal__container {
     width: 720px;
-    position: relative;
+/*    position: relative;
     left: 700px;
-    top: -800px;
+    top: -800px;*/
     background-color: #1C1C21;
     box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
     flex-direction: column;
@@ -12,6 +12,11 @@
     border: 1px solid rgba(76, 76, 255, 0.2);
     z-index: 2;
     align-items: center;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .modal__button {
