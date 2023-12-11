@@ -1,0 +1,42 @@
+.constructor {
+    max-width: 600px;
+    width: 100%;
+}
+
+.constructor__item {
+    display: flex;
+    align-items: center;
+    column-gap: 13px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.constructor__item:first-of-type {
+    margin-top: 0;
+}
+
+.constructor__container {
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.constructor__list {
+    overflow-y: auto;
+    margin: 0;
+    max-height: 40vh;
+    list-style-type: none;
+    padding: 0;
+}
+
+.constructor__total {
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+}
+
+.constructor__price {
+    align-items: center;
+    display: flex;
+}

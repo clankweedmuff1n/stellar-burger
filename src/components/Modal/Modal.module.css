@@ -1,0 +1,26 @@
+.modal__container {
+    width: 720px;
+    position: relative;
+    left: 700px;
+    top: -800px;
+    background-color: #1C1C21;
+    box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+    flex-direction: column;
+    border-radius: 40px;
+    box-sizing: border-box;
+    display: flex;
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    z-index: 2;
+    align-items: center;
+}
+
+.modal__button {
+    top: 60px;
+    right: 40px;
+    border: none;
+    position: absolute;
+    margin: 0;
+    cursor: pointer;
+    padding: 0;
+    background-color: transparent;
+}
