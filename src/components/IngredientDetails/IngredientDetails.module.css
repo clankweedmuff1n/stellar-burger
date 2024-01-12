@@ -4,16 +4,16 @@
 }
 
 .paragraph {
-    margin-top: 17px;
+  margin-top: 17px;
 }
 
 .container {
     list-style: none;
+    width: 516px;
     display: flex;
     justify-content: space-between;
     margin: 32px 0 60px 0;
     padding: 0;
-    width: 516px;
     position: relative;
 }
 
@@ -21,13 +21,13 @@
     margin-top: 12px;
 }
 
+.text {
+    color: #8585ad;
+}
+
 .item {
     color: #8585ad;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.text {
-    color: #8585ad;
 }

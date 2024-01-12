@@ -1,78 +1,94 @@
-import {ConstructorElement, CurrencyIcon, DragIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
-import stylesConstructor from './BurgerConstructor.module.css';
-import PropTypes from "prop-types";
-import ingredientPropType from "../../utils/prop-types";
-import Modal from "../Modal/Modal";
-import OrderDetails from "../OrderDetails/OrderDetails";
+import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
+import {useMemo} from 'react';
+import {useDrop} from 'react-dnd';
+import styles from './BurgerConstructor.module.css';
+import FillingList from '../FillingList/FillingList';
+import {useSelector, useDispatch} from 'react-redux';
+import OrderConstructor from '../OrderConstructor/OrderConstructor';
+import {ADD_INGREDIENT, SORT_INGREDIENT} from '../../services/actions/burgerConstructorAction';
+import loader from '../../images/loader.svg';
+import {Reorder} from "framer-motion";
+import {v4} from 'uuid';
+
+const BurgerConstructor = () => {
+    const dispatch = useDispatch();
+
+    const {bun, fillingList} = useSelector((store) => ({
+        bun: store.burgerConstructorReducer.constructorBunElement,
+        fillingList: store.burgerConstructorReducer.constructorFillingList,
+    }))
 
 
-function BurgerConstructor({constructorIngredients}) {
-    const [modal, setModal] = React.useState(false);
-
-    function toggleModal() {
-        setModal((prevModal) => {
-            console.log(prevModal)
-            return !prevModal
-        });
+    function dropHandler(ingredient) {
+        dispatch({type: ADD_INGREDIENT, constructorItemId: v4(), payload: ingredient});
     }
 
+    const [{isHover}, dropTarget] = useDrop({
+        accept: 'ingredients',
+        drop(ingredient) {
+            dropHandler(ingredient);
+        },
+        collect: (monitor) => ({
+            isHover: monitor.isOver(),
+        }),
+    });
+
+    const bunPrice = useMemo(() => {
+        return bun === undefined ? 0 : bun.price;
+    }, [bun]);
+
+    const fillingPrice = useMemo(() => {
+        return fillingList.reduce((sum, item) => sum + item.price, 0);
+    }, [fillingList]);
+
+    const totalPrice = useMemo(() => {
+        return bun === undefined ? fillingPrice : bunPrice + fillingPrice;
+    }, [bunPrice, bun, fillingPrice])
+
+
     return (
-        <section className={`${stylesConstructor.constructor} ml-10 mt-20`}>
-            <div className={stylesConstructor.constructor__container}>
+        <section className={`${styles.constructor} ml-10 mt-20`}>
+            <ul
+                ref={dropTarget}
+                className={isHover ? styles.list_hover : styles.constructor__list}
+            >
                 <ConstructorElement
-                    text='Краторная булка N-200i (верх)'
-                    type='top'
-                    price={200}
-                    thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+                    type="top"
                     isLocked={true}
+                    text={bun === undefined ? "Выберите булку" : `${bun.name} (верх)`}
+                    price={bun === undefined ? 0 : bun.price}
+                    extraClass="ml-8"
+                    thumbnail={bun === undefined ? loader : bun.image}
                 />
-
-                <ul className={`${stylesConstructor.constructor__list} custom-scroll`}>
-                    {/* eslint-disable-next-line array-callback-return */}
-                    {constructorIngredients.map((item) => {
-                        if (item.type !== "bun") {
-                            return (
-                                <li key={item._id} className={`${stylesConstructor.constructor__item} mt-4 pr-5`}>
-                                    <DragIcon/>
-                                    <ConstructorElement
-                                        key={item._id}
-                                        text={item.name}
-                                        price={item.price}
-                                        thumbnail={item.image}
-                                    />
-                                </li>
-                            )
-                        }
+                <Reorder.Group
+                    axis="y"
+                    values={fillingList}
+                    className={styles.constructor__container}
+                    onReorder={(sortFillingList) =>
+                        dispatch({type: SORT_INGREDIENT, payload: sortFillingList})
+                    }
+                >
+                    {fillingList.map((item) => {
+                        return (
+                            <FillingList
+                                key={item.constructorItemId}
+                                filling={item}
+                            />
+                        );
                     })}
-                </ul>
-
+                </Reorder.Group>
                 <ConstructorElement
-                    text='Краторная булка N-200i (низ)'
-                    thumbnail={'https://code.s3.yandex.net/react/code/bun-02-mobile.png'}
-                    type='bottom'
+                    type="bottom"
                     isLocked={true}
-                    price={200}
+                    text={bun === undefined ? "Выберите булку" : `${bun.name} (низ)`}
+                    price={bun === undefined ? 0 : bun.price}
+                    extraClass="ml-8"
+                    thumbnail={bun === undefined ? loader : bun.image}
                 />
-            </div>
-            <div className={`${stylesConstructor.constructor__total} mr-8 mt-10`}>
-                <div className={`${stylesConstructor.constructor__price} mr-10`}>
-                    <p className='text text_type_digits-medium mr2'>10000</p>
-                    <CurrencyIcon/>
-                </div>
-                <Button htmlType={"button"} type='primary' onClick={toggleModal} size='large'>Оформить заказ</Button>
-                {modal && (
-                    <Modal onCloseModal={toggleModal}>
-                        <OrderDetails/>
-                    </Modal>
-                )}
-            </div>
+            </ul>
+            <OrderConstructor price={totalPrice}/>
         </section>
     )
 }
-
-BurgerConstructor.propTypes = {
-    constructorIngredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-};
 
 export default BurgerConstructor;

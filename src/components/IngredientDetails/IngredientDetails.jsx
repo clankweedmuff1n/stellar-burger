@@ -1,41 +1,37 @@
-import stylesIngredientDetails from './IngredientDetails.module.css';
-import itemPropTypes from '../../utils/prop-types';
+import styles from './IngredientDetails.module.css';
+import {useSelector} from 'react-redux';
 
-
-function IngredientDetails({ingredient}) {
+const IngredientDetails = () => {
+    const ingredient = useSelector((store) => store.currentIngredientReducer.currentIngredient);
     return (
         <>
-            <p className={`${stylesIngredientDetails.title} text text_type_main-large`}>Детали ингредиента</p>
+            <p className={`${styles.title} text text_type_main-large`}>Детали ингредиента</p>
             <img
-                className={stylesIngredientDetails.image}
+                className={styles.image}
                 src={ingredient.image_large}
                 alt={ingredient.name}
             />
-            <p className={`${stylesIngredientDetails.paragraph} text text_type_main-medium`}>{ingredient.name}</p>
-            <ul className={stylesIngredientDetails.container}>
-                <li className={stylesIngredientDetails.item}>
+            <p className={`${styles.paragraph} text text_type_main-medium`}>{ingredient.name}</p>
+            <ul className={styles.container}>
+                <li className={styles.item}>
                     <p className='text text_type_main-default'>Калории, ккал</p>
                     <p className='text text_type_digits-default mt-2'>{ingredient.calories}</p>
                 </li>
-                <li className={stylesIngredientDetails.item}>
+                <li className={styles.item}>
                     <p className='text text_type_main-default'>Белки, г</p>
                     <p className='text text_type_digits-default mt-2'>{ingredient.proteins}</p>
                 </li>
-                <li className={stylesIngredientDetails.item}>
+                <li className={styles.item}>
                     <p className='text text_type_main-default'>Жиры, г</p>
                     <p className='text text_type_digits-default mt-2'>{ingredient.fat}</p>
                 </li>
-                <li className={stylesIngredientDetails.item}>
+                <li className={styles.item}>
                     <p className='text text_type_main-default'>Углеводы, г</p>
                     <p className='text text_type_digits-default mt-2'>{ingredient.carbohydrates}</p>
                 </li>
             </ul>
         </>
     )
-}
-
-IngredientDetails.propTypes = {
-    ingredient: itemPropTypes,
 }
 
 export default IngredientDetails;

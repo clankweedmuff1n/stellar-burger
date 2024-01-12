@@ -1,0 +1,5 @@
+.filling__item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}

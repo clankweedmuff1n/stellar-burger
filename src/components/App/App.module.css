@@ -1,15 +1,15 @@
 .app {
-    margin: 0 auto;
-    max-width: 1920px;
-    justify-content: center;
-    flex-direction: column;
-    display: flex;
-    width: 100%;
+  margin: 0 auto;
+  max-width: 1920px;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  width: 100%;
 }
 
 .app__content {
-    margin: 0 auto;
-    display: flex;
-    width: 100%;
-    max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  width: 100%;
+  max-width: 1240px;
 }

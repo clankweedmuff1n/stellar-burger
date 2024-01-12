@@ -1,31 +1,32 @@
-import styles from "./App.module.css";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import AppHeader from "../AppHeader/AppHeader";
-import React from "react";
-import getIngredientsApi from "../../utils/api";
+import {useEffect} from 'react';
+import styles from './App.module.css';
+import AppHeader from '../AppHeader/AppHeader';
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
+import {useDispatch} from 'react-redux';
+import {getIngredient} from '../../services/actions/burgerIngredientsAction';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 
-function App() {
-    const [data, setData] = React.useState([]);
+const App = () => {
+    const dispatch = useDispatch();
 
-    React.useEffect(() => {
-        getIngredientsApi()
-            .then((data) => {
-                setData(data.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, []);
+    useEffect(() => {
+        dispatch(getIngredient());
+    }, [dispatch])
+
     return (
-        <div className={styles.app}>
+        <div className={`${styles.app} custom-scroll`}>
             <AppHeader/>
-            <main className={styles.app__content}>
-                <BurgerIngredients data={data}/>
-                <BurgerConstructor constructorIngredients={data}/>
-            </main>
+            <DndProvider backend={HTML5Backend}>
+                <main className={styles.app__content}>
+                    <BurgerIngredients/>
+                    <BurgerConstructor/>
+                </main>
+            </DndProvider>
         </div>
     );
 }
 
 export default App;
+
