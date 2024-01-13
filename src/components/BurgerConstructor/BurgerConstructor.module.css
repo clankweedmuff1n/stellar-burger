@@ -1,0 +1,29 @@
+.constructor {
+    max-width: 600px;
+    width: 100%;
+}
+
+.constructor__container {
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.constructor__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.list_hover {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25),
+    0px 0px 8px 8px rgba(51, 51, 255, 0.25);
+}
