@@ -1,12 +1,12 @@
-import {Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector, useDispatch} from 'react-redux';
 import styles from './OrderConstructor.module.css';
 import Modal from '../Modal/Modal';
 import {RESET_ORDER} from '../../services/actions/currentOrderAction';
 import {makeOrder} from '../../services/actions/currentOrderAction';
-import icon from '../../images/image.svg';
 import OrderDetails
     from '../OrderDetails/OrderDetails';
+import PropTypes from "prop-types";
 
 const OrderConstructor = ({price}) => {
     const order = useSelector((store) => store.currentOrderReducer.order);
@@ -23,7 +23,7 @@ const OrderConstructor = ({price}) => {
                 <p className="text text_type_digits-medium">
                     {price}
                 </p>
-                <img src={icon} alt="Знак валюты"/>
+                <CurrencyIcon type={"primary"}/>
             </div>
             <Button htmlType="button" type="primary" size="large" onClick={() => dispatch(makeOrder(ingredients))}
                     disabled={!ingredients.constructorBunElement}>
@@ -36,6 +36,10 @@ const OrderConstructor = ({price}) => {
             )}
         </div>
     )
+}
+
+OrderConstructor.propTypes = {
+    price: PropTypes.number.isRequired,
 }
 
 export default OrderConstructor;

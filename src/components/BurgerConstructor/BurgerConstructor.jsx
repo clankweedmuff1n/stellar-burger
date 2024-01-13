@@ -2,7 +2,7 @@ import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-compon
 import {useMemo} from 'react';
 import {useDrop} from 'react-dnd';
 import styles from './BurgerConstructor.module.css';
-import FillingList from '../FillingList/FillingList';
+import FillingItem from '../FillingItem/FillingItem';
 import {useSelector, useDispatch} from 'react-redux';
 import OrderConstructor from '../OrderConstructor/OrderConstructor';
 import {ADD_INGREDIENT, SORT_INGREDIENT} from '../../services/actions/burgerConstructorAction';
@@ -70,7 +70,7 @@ const BurgerConstructor = () => {
                 >
                     {fillingList.map((item) => {
                         return (
-                            <FillingList
+                            <FillingItem
                                 key={item.constructorItemId}
                                 filling={item}
                             />

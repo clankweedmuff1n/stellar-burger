@@ -1,10 +1,11 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import style from './FillingList.module.css';
+import style from './FillingItem.module.css';
 import {useDispatch} from "react-redux";
 import {DELETE_INGREDIENT} from "../../services/actions/burgerConstructorAction";
 import {Reorder} from 'framer-motion';
+import PropTypes from "prop-types";
 
-const FillingList = ({filling}) => {
+const FillingItem = ({filling}) => {
     const dispatch = useDispatch();
 
     return (
@@ -22,4 +23,8 @@ const FillingList = ({filling}) => {
     )
 }
 
-export default FillingList;
+FillingItem.propTypes = {
+    filling: PropTypes.element.isRequired,
+}
+
+export default FillingItem;

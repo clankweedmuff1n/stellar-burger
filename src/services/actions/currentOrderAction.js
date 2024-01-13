@@ -1,4 +1,4 @@
-import {apiOrder} from "../../utils/api";
+import {sendOrder} from "../../utils/api";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -13,7 +13,7 @@ export function makeOrder(ingredients) {
             ingredients.constructorBunElement._id,
         ]
         dispatch({type: GET_ORDER_REQUEST});
-        apiOrder(arrayId)
+        sendOrder(arrayId)
             .then((res) => {
                 dispatch({type: GET_ORDER_SUCCESS, payload: res.order.number});
             })

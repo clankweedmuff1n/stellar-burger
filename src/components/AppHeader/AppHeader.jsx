@@ -7,7 +7,7 @@ import {
 import React from 'react';
 import styles from './AppHeader.module.css';
 
-function AppHeader() {
+const AppHeader = () => {
     return (
         <header className={styles.header}>
             <nav className={`${styles.header__navigation} pb-4 pt-4`}>
