@@ -24,7 +24,7 @@ const FillingItem = ({filling}) => {
 }
 
 FillingItem.propTypes = {
-    filling: PropTypes.element.isRequired,
+    filling: PropTypes.object.isRequired,
 }
 
 export default FillingItem;
