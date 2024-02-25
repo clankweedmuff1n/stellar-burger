@@ -11,7 +11,7 @@ const IngredientsItem = ({ingredient}) => {
     const constructorIngredients = useSelector((store) => store.burgerConstructorReducer);
     const burgerIngredients = useSelector((store) => store.burgerIngredientsReducer);
 
-    const openModal = () => {
+    const setCurrentIngredient = () => {
         dispatch({type: SET_CURRENT_INGREDIENT, payload: ingredient});
     }
 
@@ -36,7 +36,7 @@ const IngredientsItem = ({ingredient}) => {
     const getIngredientCounter = (ingredientId) => counter[ingredientId];
 
     return (
-        <li ref={dragRef} className={`${styles.ingredients__item} mb-8`} onClick={openModal}>
+        <li ref={dragRef} className={`${styles.ingredients__item} mb-8`} onClick={setCurrentIngredient}>
             {getIngredientCounter(ingredient._id) !== 0 && (
                 <Counter count={getIngredientCounter(ingredient._id)} size='default'/>
             )}

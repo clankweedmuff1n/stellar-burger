@@ -2,10 +2,7 @@ import {useMemo, useState, useEffect} from 'react';
 import styles from './BurgerIngredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from './IngredientsList/IngredientsList';
-import {useSelector, useDispatch} from 'react-redux';
-import Modal from '../Modal/Modal';
-import {RESET_CURRENT_INGREDIENT} from '../../services/actions/currentIngredientAction';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import {useSelector} from 'react-redux';
 import {useInView} from 'react-intersection-observer';
 
 const BurgerIngredients = () => {
@@ -15,13 +12,6 @@ const BurgerIngredients = () => {
     const [bunTabRef, inViewTabBun] = useInView({threshold: 0});
     const [sauceTabRef, inViewTabSauce] = useInView({threshold: 0});
     const [mainTabRef, inViewTabMain] = useInView({threshold: 0});
-
-    const dispatch = useDispatch();
-
-    const closeModal = (e) => {
-        e.stopPropagation();
-        dispatch({type: RESET_CURRENT_INGREDIENT});
-    }
 
     useEffect(() => {
         if (inViewTabBun) {
@@ -57,9 +47,6 @@ const BurgerIngredients = () => {
         setCurrent(id);
         document.querySelector(`#${id}`).scrollIntoView({behavior: 'smooth'});
     }
-
-    const currentIngredient = useSelector((store) => store.currentIngredientReducer.currentIngredient);
-
 
     return (
         <section className={styles.ingredients__section}>
@@ -99,11 +86,6 @@ const BurgerIngredients = () => {
                     ingredients={mains}
                 />
             </div>
-            {currentIngredient && (
-                <Modal onCloseModal={closeModal}>
-                    <IngredientDetails/>
-                </Modal>
-            )}
         </section>
     );
 }

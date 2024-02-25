@@ -4,37 +4,68 @@ import {
     Logo,
     ProfileIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, {useCallback} from 'react';
 import styles from './AppHeader.module.css';
+import {NavLink, useLocation} from "react-router-dom";
 
 const AppHeader = () => {
+    const activeStyle = {
+        color: "#f2f2f3",
+    }
+    const {pathname} = useLocation();
+
+    const toggleStyleIcon = useCallback(
+        (url) => {
+            if (pathname === '/' && url === '/') {
+                return 'primary';
+            } else {
+                return 'secondary';
+            }
+        },
+        [pathname]
+    );
     return (
         <header className={styles.header}>
             <nav className={`${styles.header__navigation} pb-4 pt-4`}>
                 <ul className={styles.header__list}>
                     <div className={styles.header__list_wrapper}>
                         <li className={styles.header__item}>
-                            <a className={styles.header__link} href='#'>
-                                <BurgerIcon type='primery'/>
+                            <NavLink
+                                to='/'
+                                style={({isActive}) => (isActive ? activeStyle : undefined)}
+                                className={`text text_type_main-default ${styles.button}`}>
+                                <BurgerIcon type={toggleStyleIcon('/')}/>
                                 <p className='text text_type_main-default pl-2'>Конструктор</p>
-                            </a>
+                            </NavLink>
                         </li>
                         <li className={styles.header__item}>
-                            <a className={styles.header__link} href='#'>
-                                <ListIcon type='secondary'/>
+                            <NavLink
+                                to='/order-feed'
+                                style={({isActive}) => (isActive ? activeStyle : undefined)}
+                                className={`text text_type_main-default ${styles.button}`}
+                            >
+                                <ListIcon type={toggleStyleIcon('/order-feed')}/>
                                 <p className='text text_type_main_default text_color_inactive pl-2'>Лента заказов</p>
-                            </a>
+                            </NavLink>
                         </li>
                     </div>
                     <li className={styles.header__item}>
-                        <Logo/>
+                        <NavLink
+                            to='/'
+                            className={`text text_type_main-default`}
+                        >
+                            <Logo/>
+                        </NavLink>
                     </li>
                     <div className={styles.header__list_wrapper}>
                         <li className={`${styles.header__item} pr-5`}>
-                            <a className={styles.header__link} href='#'>
-                                <ProfileIcon type='secondary'/>
+                            <NavLink
+                                to='/profile'
+                                style={({isActive}) => (isActive ? activeStyle : undefined)}
+                                className={`text text_type_main-default ${styles.button} ${styles.button_profile} `}>
+                                <ProfileIcon type={toggleStyleIcon('/profile')}/>
                                 <p className='text text_type_main_default text_color_inactive pl-2'>Личный кабинет</p>
-                            </a>
+                            </NavLink>
                         </li>
                     </div>
                 </ul>

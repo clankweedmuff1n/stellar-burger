@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './Modal.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import PropTypes from 'prop-types';
 
@@ -31,8 +30,10 @@ const Modal = ({children, onCloseModal}) => {
     return domReady
         ? ReactDOM.createPortal((
             <>
-                <div className={styles.modal__container} onClick={(e) => e.stopPropagation()}>
-                    <button type='button' className={styles.modal__button} onClick={onCloseModal}>
+                <div
+                    style={{transform: "translate(-50%, -50%)"}}
+                    className="w-[720px] bg-dark-bg shadow-shadow-modal flex flex-col rounded-modal box-border border-2 border-purple-dark z-20 items-center fixed top-[50%] left-[50%]" onClick={(e) => e.stopPropagation()}>
+                    <button type='button' className="top-[60px] right-[40px] border-none absolute m-0 cursor-pointer p-0 bg-transparent" onClick={onCloseModal}>
                         <CloseIcon/>
                     </button>
                     {children}

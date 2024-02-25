@@ -3,6 +3,7 @@ import IngredientsItem from '../IngredientsItem/IngredientsItem';
 import styles from './IngredientsList.module.css';
 import PropTypes from 'prop-types';
 import itemPropTypes from '../../../utils/prop-types';
+import {NavLink} from "react-router-dom";
 
 const IngredientsList = React.forwardRef((props, ref) => {
     return (
@@ -12,7 +13,11 @@ const IngredientsList = React.forwardRef((props, ref) => {
             </p>
             <ul className={styles.ingredients__list}>
                 {props.ingredients.map((item) => {
-                    return <IngredientsItem key={item._id} ingredient={item}/>
+                    return <>
+                        <NavLink to={`/ingredients/${item._id}`}>
+                            <IngredientsItem key={item._id} ingredient={item}/>
+                        </NavLink>
+                    </>
                 })}
             </ul>
         </>

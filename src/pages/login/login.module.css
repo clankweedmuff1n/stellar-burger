@@ -1,0 +1,33 @@
+.section {
+    display: flex;
+    justify-content: center;
+    margin-top: 180px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 80px;
+}
+
+.link {
+    margin-left: 8px;
+    display: inline-block;
+    text-decoration: none;
+    color: #4c4cff;
+}
