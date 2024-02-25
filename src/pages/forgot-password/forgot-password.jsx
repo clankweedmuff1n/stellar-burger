@@ -1,13 +1,12 @@
-import styles from './forgot-password.module.css';
-import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { setForgotPasswordFormValue, forgotPassword } from "../../services/actions/userAction";
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import {EmailInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {setForgotPasswordFormValue, forgotPassword} from "../../services/actions/userAction";
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
 
 export default function ForgottenPasswordPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { forgotPasswordForm } = useSelector((store) => store.userReducer);
+    const {forgotPasswordForm} = useSelector((store) => store.userReducer);
 
     function fieldOnChange(e) {
         dispatch(setForgotPasswordFormValue(e.target.name, e.target.value));
@@ -15,15 +14,15 @@ export default function ForgottenPasswordPage() {
 
     function forgottenPasswordFormSubmit(e) {
         e.preventDefault();
-        dispatch(forgotPassword(forgotPasswordForm,() => navigate('/reset-password')))
+        dispatch(forgotPassword(forgotPasswordForm, () => navigate('/reset-password')))
     }
 
     return (
         <>
-            <section className={styles.section}>
-                <div className={styles.container}>
+            <section className="mt-[180px] flex justify-center">
+                <div className="flex flex-col items-center">
                     <p className='text text_type_main-medium mb-6'>Восстановление пароля</p>
-                    <form className={styles.form} onSubmit={forgottenPasswordFormSubmit}>
+                    <form className="flex flex-col items-center gap-6" onSubmit={forgottenPasswordFormSubmit}>
                         <EmailInput
                             placeholder="Укажите e-mail"
                             value={forgotPasswordForm.email}
@@ -34,7 +33,7 @@ export default function ForgottenPasswordPage() {
                     </form>
                     <p className="text text_type_main-default">
                         Вспомнили пароль?
-                        <Link to='/login' className={styles.link}>
+                        <Link to='/login' className="mt-[80px] inline-block no-underline ml-[9px] text-purple">
                             Войти
                         </Link>
                     </p>

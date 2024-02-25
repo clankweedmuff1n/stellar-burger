@@ -1,22 +1,25 @@
 import React from 'react';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import styles from './IngredientsList.module.css';
 import PropTypes from 'prop-types';
 import itemPropTypes from '../../../utils/prop-types';
-import {NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 
 const IngredientsList = React.forwardRef((props, ref) => {
+    let location = useLocation();
+    console.log(location)
     return (
         <>
             <p ref={ref} id={props.id} className='text text_type_main-medium mt-10 mb-6'>
                 {props.title}
             </p>
-            <ul className={styles.ingredients__list}>
+            <ul className="mt-0 max-w-[600px] list-none gap-6 py-0 px-4 mb-[40px] grid grid-cols-custom">
                 {props.ingredients.map((item) => {
                     return <>
-                        <NavLink to={`/ingredients/${item._id}`}>
-                            <IngredientsItem key={item._id} ingredient={item}/>
-                        </NavLink>
+                        <Link key={item._id}
+                              to={`/ingredients/${item._id}`}
+                              state={{background: location}}>
+                            <IngredientsItem ingredient={item}/>
+                        </Link>
                     </>
                 })}
             </ul>

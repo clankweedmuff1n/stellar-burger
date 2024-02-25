@@ -1,10 +1,8 @@
 import {React, useState} from "react";
 import {NavLink, useNavigate, useLocation, Outlet} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import styles from './profile.module.css';
 import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {logoutUser, changeUserData} from "../../services/actions/userAction";
-import AppHeader from "../../components/AppHeader/AppHeader";
 
 export default function ProfilePage() {
     const dispatch = useDispatch();
@@ -34,14 +32,13 @@ export default function ProfilePage() {
 
     return (
         <>
-            <AppHeader/>
-            <section className={styles.section}>
-                <div className={styles.container}>
-                    <div className={styles.column__nav}>
-                        <nav className={styles.nav}>
+            <section className="mt-[120px]">
+                <div className="flex m-auto max-w-[1280px] gap-[60px]">
+                    <div className="max-w-[320px] gap-[80px] flex flex-col">
+                        <nav className="flex flex-col">
                             <NavLink
                                 to='/profile'
-                                className={`text text_type_main-medium text_color_inactive ${styles.link}`}
+                                className="text text_type_main-medium text_color_inactive flex min-h-[65px] items-center"
                                 style={({isActive}) => (isActive ? activeStyle : undefined)}
                                 end
                             >
@@ -49,7 +46,7 @@ export default function ProfilePage() {
                             </NavLink>
                             <NavLink
                                 to='order-page'
-                                className={`text text_type_main-medium text_color_inactive ${styles.link}`}
+                                className="text text_type_main-medium text_color_inactive flex min-h-[65px] items-center"
                                 style={({isActive}) => (isActive ? activeStyle : undefined)}
                                 state={{order: true}}
                                 end
@@ -58,19 +55,19 @@ export default function ProfilePage() {
                             </NavLink>
                             <NavLink
                                 onClick={() => dispatch(logoutUser(() => navigate('/login')))}
-                                className={`text text_type_main-medium text_color_inactive ${styles.link}`}
+                                className="text text_type_main-medium text_color_inactive flex min-h-[65px] items-center"
                             >
                                 Выход
                             </NavLink>
                         </nav>
-                        <p className={`text text_type_main-default ${styles.text}`}>В&nbsp;этом разделе вы&nbsp;можете
+                        <p className="text text_type_main-default opacity-[0.4] text-purple-light">В&nbsp;этом разделе вы&nbsp;можете
                             изменить свои персональные
                             данные</p>
                     </div>
                     {location.state ? (
                         <Outlet/>
                     ) : (
-                        <form className={styles.column__form} onSubmit={profileFormSubmit}>
+                        <form className="flex flex-col gap-[24px]" onSubmit={profileFormSubmit}>
                             <Input
                                 icon='EditIcon'
                                 placeholder="Имя"
@@ -96,7 +93,7 @@ export default function ProfilePage() {
                                 disabled
                                 value='******'
                             />
-                            <div className={styles.container__buttons}>
+                            <div className="flex flex-end">
                                 <Button
                                     type='secondary'
                                     size='medium'

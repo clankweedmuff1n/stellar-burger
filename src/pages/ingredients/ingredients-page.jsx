@@ -1,31 +1,24 @@
-import styles from './ingredients-page.module.css';
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import {useSelector} from 'react-redux';
-import {useParams, useLocation, Navigate} from 'react-router-dom';
-import AppHeader from "../../components/AppHeader/AppHeader";
+import {useParams} from 'react-router-dom';
 
-export default function IngredientsPage() {
+const IngredientsPage = () => {
     const ingredients = useSelector((store) => store.burgerIngredientsReducer.burgerIngredientsList);
     const {id} = useParams();
     const currentIngredient = ingredients.find((item) => item._id === id);
-    const location = useLocation();
 
-    return location.state?.from === "/" ? (
-        <Navigate to='/'/>
-    ) : (
-        currentIngredient && (
+    return currentIngredient &&
+        (
             <>
-                <AppHeader/>
-                <section className={styles.section}>
-                    <div className={styles.container}>
+                <section className="mt-[120px] flex justify-center">
+                    <div className="max-w-[640px] flex flex-col items-center">
                         <IngredientDetails
                             ingredient={currentIngredient}
-                            titleClassName={styles.title}
-                            subtitleClassName={styles.subtitle}
                         />
                     </div>
                 </section>
             </>
-        )
-    );
+        );
 }
+
+export default IngredientsPage;

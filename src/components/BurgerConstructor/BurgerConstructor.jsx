@@ -1,7 +1,6 @@
 import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useMemo} from 'react';
 import {useDrop} from 'react-dnd';
-import styles from './BurgerConstructor.module.css';
 import FillingItem from '../FillingItem/FillingItem';
 import {useSelector, useDispatch} from 'react-redux';
 import OrderConstructor from '../OrderConstructor/OrderConstructor';
@@ -47,10 +46,10 @@ const BurgerConstructor = () => {
 
 
     return (
-        <section className={`${styles.constructor} ml-10 mt-20`}>
+        <section className="max-w-[600px] w-full ml-10 mt-20">
             <ul
                 ref={dropTarget}
-                className={isHover ? styles.list_hover : styles.constructor__list}
+                className={isHover ? "flex flex-col gap-4 m-0 p-0 shadow-modal-shadow" : "flex flex-col gap-4 m-0 p-0"}
             >
                 <ConstructorElement
                     type="top"
@@ -63,7 +62,7 @@ const BurgerConstructor = () => {
                 <Reorder.Group
                     axis="y"
                     values={fillingList}
-                    className={styles.constructor__container}
+                    className="flex flex-col gap-[10px] items-center"
                     onReorder={(sortFillingList) =>
                         dispatch({type: SORT_INGREDIENT, payload: sortFillingList})
                     }

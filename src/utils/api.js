@@ -1,16 +1,15 @@
-const BASE_URL = "https://norma.nomoreparties.space/api/ingredients";
-const ORDER_URL = "https://norma.nomoreparties.space/api/orders";
-const REGISTER_URL = "https://norma.nomoreparties.space/api/auth/register";
-const LOGIN_URL = "https://norma.nomoreparties.space/api/auth/login";
-const LOGOUT_URL = "https://norma.nomoreparties.space/api/auth/logout";
-const TOKEN_URL = "https://norma.nomoreparties.space/api/auth/token";
-const CHECK_ACCESS_URL = "https://norma.nomoreparties.space/api/auth/user";
-const RESET_PASSWORD_URL = "https://norma.nomoreparties.space/api/password-reset/reset";
-const FORGOT_PASSWORD_URL = "https://norma.nomoreparties.space/api/password-reset";
+import {checkResponse} from "./fetchWithRefresh";
 
-const checkResponse = (res) => {
-    return res.ok ? res.json() : Promise.reject(res.status);
-};
+const BASE_URL = "https://norma.nomoreparties.space/api/";
+const INGREDIENTS_URL = BASE_URL + "ingredients";
+const ORDER_URL = BASE_URL + "orders";
+const REGISTER_URL = BASE_URL + "auth/register";
+const LOGIN_URL = BASE_URL + "auth/login";
+const LOGOUT_URL = BASE_URL + "auth/logout";
+const TOKEN_URL = BASE_URL + "auth/token";
+const CHECK_ACCESS_URL = BASE_URL + "auth/user";
+const RESET_PASSWORD_URL = BASE_URL + "password-reset/reset";
+const FORGOT_PASSWORD_URL = BASE_URL + "password-reset";
 
 const sendOrderRequest = async (arrayId) => {
     const res = await fetch(ORDER_URL, {
@@ -26,7 +25,7 @@ const sendOrderRequest = async (arrayId) => {
 }
 
 async function getIngredientsRequest() {
-    const res = await fetch(BASE_URL);
+    const res = await fetch(INGREDIENTS_URL);
     return checkResponse(res);
 }
 

@@ -1,5 +1,4 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import style from './FillingItem.module.css';
 import {useDispatch} from "react-redux";
 import {DELETE_INGREDIENT} from "../../services/actions/burgerConstructorAction";
 import {Reorder} from 'framer-motion';
@@ -9,7 +8,7 @@ const FillingItem = ({filling}) => {
     const dispatch = useDispatch();
 
     return (
-        <Reorder.Item whileDrag={{scale: 0.8}} value={filling} className={style.filling__item}>
+        <Reorder.Item whileDrag={{scale: 0.8}} value={filling} className="flex items-center gap-[11px]">
             <DragIcon/>
             <ConstructorElement
                 text={filling.name}

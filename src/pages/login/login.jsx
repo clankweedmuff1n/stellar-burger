@@ -1,7 +1,5 @@
 import {Button, EmailInput, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import AppHeader from '../../components/AppHeader/AppHeader';
-import styles from './login.module.css';
 import {Link, useNavigate} from 'react-router-dom';
 import {setLoginFormValue, loginUser} from '../../services/actions/userAction';
 import {useDispatch, useSelector} from 'react-redux';
@@ -26,11 +24,10 @@ export default function LoginPage() {
 
     return (
         <>
-            <AppHeader/>
-            <section className={styles.section}>
-                <div className={styles.container}>
+            <section className="flex justify-center mt-[180px]">
+                <div className="flex flex-col items-center">
                     <p className='text text_type_main-medium mb-6'>Вход</p>
-                    <form className={styles.form} onSubmit={loginFormSubmit}>
+                    <form className="flex flex-col items-center gap-6" onSubmit={loginFormSubmit}>
                         <EmailInput
                             value={loginForm.email}
                             name='email'
@@ -45,14 +42,14 @@ export default function LoginPage() {
                         />
                         <Button htmlType='submit' type='primary' size='medium'>Войти</Button>
                     </form>
-                    <div className={styles.links}>
+                    <div className="flex flex-col items-center gap-4 mt-[80px]">
                         <p className='text text_type_main-default'>
                             Вы - новый пользователь?
-                            <Link to='/register' className={styles.link}>Зарегистрироваться</Link>
+                            <Link to='/register' className="ml-[8px] inline-block text-purple">Зарегистрироваться</Link>
                         </p>
                         <p className='text text_type_main-default'>
                             Забыли пароль?
-                            <Link to='/forgot-password' className={styles.link}>Восстановить пароль</Link>
+                            <Link to='/forgot-password' className="ml-[8px] inline-block text-purple">Восстановить пароль</Link>
                         </p>
                     </div>
                 </div>

@@ -1,9 +1,12 @@
 import {useMemo, useState, useEffect} from 'react';
-import styles from './BurgerIngredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from './IngredientsList/IngredientsList';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useInView} from 'react-intersection-observer';
+import Modal from "../Modal/Modal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import {RESET_CURRENT_INGREDIENT} from "../../services/actions/currentIngredientAction";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('first');
@@ -12,6 +15,17 @@ const BurgerIngredients = () => {
     const [bunTabRef, inViewTabBun] = useInView({threshold: 0});
     const [sauceTabRef, inViewTabSauce] = useInView({threshold: 0});
     const [mainTabRef, inViewTabMain] = useInView({threshold: 0});
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const background = location.state && location.state.background;
+
+    function closeModal(e) {
+        e.stopPropagation();
+        navigate("/");
+        dispatch({type: RESET_CURRENT_INGREDIENT});
+    }
 
     useEffect(() => {
         if (inViewTabBun) {
@@ -49,9 +63,9 @@ const BurgerIngredients = () => {
     }
 
     return (
-        <section className={styles.ingredients__section}>
+        <section className="max-w-[600px]">
             <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
-            <div className={styles.ingredients__menu}>
+            <div className="flex">
                 <Tab value='bun' active={current === 'bun'} onClick={changeIngredients}>
                     Булки
                 </Tab>
@@ -63,7 +77,7 @@ const BurgerIngredients = () => {
                     Начинки
                 </Tab>
             </div>
-            <div className={`${styles.ingredients__list} custom-scroll`}>
+            <div className="m-0 list-none overflow-y-auto p-0 max-h-[50vh] custom-scroll">
                 <IngredientsList
                     title="Булки"
                     id="bun"
@@ -86,6 +100,11 @@ const BurgerIngredients = () => {
                     ingredients={mains}
                 />
             </div>
+            {background && (
+                <Modal onCloseModal={closeModal}>
+                    <IngredientDetails/>
+                </Modal>
+            )}
         </section>
     );
 }

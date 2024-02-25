@@ -1,4 +1,3 @@
-import styles from './register.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 import {Button, EmailInput, PasswordInput, Input} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -21,11 +20,10 @@ export default function RegisterPage() {
 
     return (
         <>
-
-            <section className={styles.main}>
-                <div className={styles.container}>
+            <section className="flex justify-center mt-[180px]">
+                <div className="flex flex-col items-center">
                     <p className='text text_type_main-medium mb-6'>Регистрация</p>
-                    <form className={styles.form} onSubmit={registerFormSubmit}>
+                    <form className="flex gap-[24px] flex-col items-center" onSubmit={registerFormSubmit}>
                         <Input
                             placeholder='Имя'
                             type='text'
@@ -50,7 +48,7 @@ export default function RegisterPage() {
                     </form>
                     <p className='text text_type_main-default'>
                         Уже зарегистрированы?
-                        <Link to='/login' className={styles.link}>Войти</Link>
+                        <Link to='/login' className="inline-block text-purple mt-[80px] ml-[8px]">Войти</Link>
                     </p>
                 </div>
 

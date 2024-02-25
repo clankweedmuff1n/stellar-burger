@@ -1,5 +1,4 @@
 import {Input, Button, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from './reset-password-page.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from 'react-router-dom';
 import {setResetPasswordFormValue, resetPassword} from "../../services/actions/userAction";
@@ -21,12 +20,11 @@ export default function ResetPasswordPage() {
 
     return (
         <>
-
-            <section className={styles.section}>
-                <div className={styles.container}>
+            <section className="mt-[180px]">
+                <div className="flex flex-col items-center">
                     <p className='text text_type_main-medium mb-6'>Восстановление пароля</p>
 
-                    <form className={styles.form} onSubmit={resetFormSubmit}>
+                    <form className="flex flex-col items-center gap-[24px]" onSubmit={resetFormSubmit}>
                         <PasswordInput
                             placeholder='Введите новый пароль'
                             value={resetPasswordForm.password}
@@ -43,7 +41,7 @@ export default function ResetPasswordPage() {
                         <Button htmlType="submit" type="primary" size='medium'>Сохранить</Button>
                     </form>
                     <p className='text text_type_main-default'>Вспомнили пароль?
-                        <Link to='/login' className={styles.link}>Войти</Link>
+                        <Link to='/login' className="text-purple mt-[80px] ml-[8px] inline-block">Войти</Link>
                     </p>
                 </div>
             </section>
