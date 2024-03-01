@@ -1,6 +1,6 @@
 import {checkResponse} from "./fetchWithRefresh";
 
-const BASE_URL = "https://norma.nomoreparties.space/api/";
+export const BASE_URL = "https://norma.nomoreparties.space/api/";
 const INGREDIENTS_URL = BASE_URL + "ingredients";
 const ORDER_URL = BASE_URL + "orders";
 const REGISTER_URL = BASE_URL + "auth/register";
@@ -36,7 +36,10 @@ const registerUserRequest = async (userDate) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(userDate),
-    }).then(checkResponse);
+    }).then(checkResponse)
+        .catch((err) => {
+            console.log(err)
+        });
 };
 
 const loginUserRequest = async (userDate) => {

@@ -1,10 +1,11 @@
 import {useSelector} from 'react-redux';
-import itemPropTypes from "../../utils/prop-types";
+import {useParams} from "react-router-dom";
 
 const IngredientDetails = (props) => {
-    let ingredient = useSelector((store) => store.currentIngredientReducer.currentIngredient);
-    if (!ingredient && props.ingredient) ingredient = props.ingredient;
-    return (
+    const ingredients = useSelector((store) => store.burgerIngredientsReducer.burgerIngredientsList);
+    const {id} = useParams();
+    const ingredient = ingredients.find((item) => item._id === id);
+    return (ingredient &&
         <>
             <p className="text text_type_main-large !mt-[53px] !ml-[41px] ">Детали ингредиента</p>
             <img
@@ -33,10 +34,6 @@ const IngredientDetails = (props) => {
             </ul>
         </>
     )
-}
-
-IngredientDetails.propTypes = {
-    ingredient: itemPropTypes,
 }
 
 export default IngredientDetails;

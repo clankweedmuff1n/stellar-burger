@@ -57,6 +57,7 @@ export const CHANGE_USER_DATA_FORM_SUBMIT_SUCCESS =
 export const CHANGE_USER_DATA_FORM_SUBMIT_FAILED =
     "CHANGE_USER_DATA_FORM_SUBMIT_FAILED";
 
+
 export function setRegisterFormValue(field, value) {
     return {
         type: USER_REGISTER_FORM_SET_VALUE,
@@ -132,6 +133,8 @@ export function logoutUser(callback) {
             deleteToken("accessToken");
             deleteToken("refreshToken");
             callback();
+        }).catch(() => {
+            dispatch({ type: USER_LOGIN_FORM_SUBMIT_FAILED });
         });
     };
 }
@@ -158,6 +161,8 @@ export function refreshUserToken(refreshToken) {
             setToken("accessToken", parseToken(res.accessToken));
             setToken("refreshToken", res.refreshToken);
             dispatch(checkUserAccess(getToken("accessToken")));
+        }).catch(() => {
+            dispatch({ type: CHANGE_USER_DATA_FORM_SUBMIT_FAILED });
         });
     };
 }
