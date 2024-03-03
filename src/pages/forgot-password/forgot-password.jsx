@@ -18,27 +18,25 @@ export default function ForgottenPasswordPage() {
     }
 
     return (
-        <>
-            <section className="mt-[180px] flex justify-center">
-                <div className="flex flex-col items-center">
-                    <p className='text text_type_main-medium mb-6'>Восстановление пароля</p>
-                    <form className="flex flex-col items-center gap-6" onSubmit={forgottenPasswordFormSubmit}>
-                        <EmailInput
-                            placeholder="Укажите e-mail"
-                            value={forgotPasswordForm.email}
-                            name='email'
-                            onChange={fieldOnChange}
-                        />
-                        <Button htmlType="submit" type='primary' size="medium">Восстановить</Button>
-                    </form>
-                    <p className="text text_type_main-default">
-                        Вспомнили пароль?
-                        <Link to='/login' className="mt-[80px] inline-block no-underline ml-[9px] text-purple">
-                            Войти
-                        </Link>
-                    </p>
-                </div>
-            </section>
-        </>
+        <section className="mt-[180px] flex justify-center">
+            <div className="flex flex-col items-center">
+                <p className='text text_type_main-medium mb-6'>Восстановление пароля</p>
+                <form className="flex flex-col items-center gap-6" onSubmit={forgottenPasswordFormSubmit}>
+                    <EmailInput
+                        placeholder="Укажите e-mail"
+                        value={forgotPasswordForm.email}
+                        name='email'
+                        onChange={fieldOnChange}
+                    />
+                    <Button htmlType="submit" type='primary' size="medium">Восстановить</Button>
+                </form>
+                <p className="text text_type_main-default">
+                    Вспомнили пароль?
+                    <Link to='/login' className="mt-[80px] inline-block no-underline ml-[9px] text-purple">
+                        Войти
+                    </Link>
+                </p>
+            </div>
+        </section>
     )
 }

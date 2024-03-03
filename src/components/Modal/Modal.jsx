@@ -39,7 +39,6 @@ const Modal = ({children, onCloseModal}) => {
                     {children}
                 </div>
                 <ModalOverlay onCloseModal={onCloseModal}/>
-
             </>
         ), document.getElementById('modals'))
         : null;

@@ -1,12 +1,8 @@
 import {useMemo, useState, useEffect} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from './IngredientsList/IngredientsList';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useInView} from 'react-intersection-observer';
-import Modal from "../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import {RESET_CURRENT_INGREDIENT} from "../../services/actions/currentIngredientAction";
-import {useLocation, useNavigate} from "react-router-dom";
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('first');
@@ -15,18 +11,6 @@ const BurgerIngredients = () => {
     const [bunTabRef, inViewTabBun] = useInView({threshold: 0});
     const [sauceTabRef, inViewTabSauce] = useInView({threshold: 0});
     const [mainTabRef, inViewTabMain] = useInView({threshold: 0});
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const navigate = useNavigate();
-
-    const background = location.state && location.state.background;
-
-    function closeModal(e) {
-        e.stopPropagation();
-        navigate("/");
-        dispatch({type: RESET_CURRENT_INGREDIENT});
-    }
-
     useEffect(() => {
         if (inViewTabBun) {
             setCurrent('bun');
@@ -100,11 +84,6 @@ const BurgerIngredients = () => {
                     ingredients={mains}
                 />
             </div>
-            {background && (
-                <Modal onCloseModal={closeModal}>
-                    <IngredientDetails/>
-                </Modal>
-            )}
         </section>
     );
 }

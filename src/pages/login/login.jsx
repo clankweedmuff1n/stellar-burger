@@ -23,38 +23,37 @@ export default function LoginPage() {
     }
 
     return (
-        <>
-            <section className="flex justify-center mt-[180px]">
-                <div className="flex flex-col items-center">
-                    <p className='text text_type_main-medium mb-6'>Вход</p>
-                    <form className="flex flex-col items-center gap-6" onSubmit={loginFormSubmit}>
-                        <EmailInput
-                            value={loginForm.email}
-                            name='email'
-                            onChange={fieldOnChange}
-                            autoComplete='email'
-                        />
-                        <PasswordInput
-                            value={loginForm.password}
-                            name='password'
-                            onChange={fieldOnChange}
-                            autoComplete='current-password'
-                        />
-                        <Button htmlType='submit' type='primary' size='medium'>Войти</Button>
-                    </form>
-                    <div className="flex flex-col items-center gap-4 mt-[80px]">
-                        <p className='text text_type_main-default'>
-                            Вы - новый пользователь?
-                            <Link to='/register' className="ml-[8px] inline-block text-purple">Зарегистрироваться</Link>
-                        </p>
-                        <p className='text text_type_main-default'>
-                            Забыли пароль?
-                            <Link to='/forgot-password' className="ml-[8px] inline-block text-purple">Восстановить пароль</Link>
-                        </p>
-                    </div>
+        <section className="flex justify-center mt-[180px]">
+            <div className="flex flex-col items-center">
+                <p className='text text_type_main-medium mb-6'>Вход</p>
+                <form className="flex flex-col items-center gap-6" onSubmit={loginFormSubmit}>
+                    <EmailInput
+                        value={loginForm.email}
+                        name='email'
+                        onChange={fieldOnChange}
+                        autoComplete='email'
+                    />
+                    <PasswordInput
+                        value={loginForm.password}
+                        name='password'
+                        onChange={fieldOnChange}
+                        autoComplete='current-password'
+                    />
+                    <Button htmlType='submit' type='primary' size='medium'>Войти</Button>
+                </form>
+                <div className="flex flex-col items-center gap-4 mt-[80px]">
+                    <p className='text text_type_main-default'>
+                        Вы - новый пользователь?
+                        <Link to='/register' className="ml-[8px] inline-block text-purple">Зарегистрироваться</Link>
+                    </p>
+                    <p className='text text_type_main-default'>
+                        Забыли пароль?
+                        <Link to='/forgot-password' className="ml-[8px] inline-block text-purple">Восстановить
+                            пароль</Link>
+                    </p>
                 </div>
+            </div>
 
-            </section>
-        </>
+        </section>
     )
 }

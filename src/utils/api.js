@@ -36,10 +36,7 @@ const registerUserRequest = async (userDate) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(userDate),
-    }).then(checkResponse)
-        .catch((err) => {
-            console.log(err)
-        });
+    }).then(checkResponse);
 };
 
 const loginUserRequest = async (userDate) => {

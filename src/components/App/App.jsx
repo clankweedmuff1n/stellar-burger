@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIngredient} from '../../services/actions/burgerIngredientsAction';
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import HomePage from "../../pages/main/main";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginPage from "../../pages/login/login";
@@ -12,9 +12,13 @@ import ResetPasswordPage from "../../pages/reset-password/reset-password-page";
 import ProfilePage from "../../pages/profile/profile";
 import IngredientsPage from "../../pages/ingredients/ingredients-page";
 import {checkUserAccess} from "../../services/actions/userAction";
+import Modal from "../Modal/Modal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import {RESET_CURRENT_INGREDIENT} from "../../services/actions/currentIngredientAction";
 
 const App = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getIngredient());
@@ -30,22 +34,37 @@ const App = () => {
 
     let background = location.state && location.state.background;
 
+    function closeModal(e) {
+        e.stopPropagation();
+        navigate("/");
+        dispatch({type: RESET_CURRENT_INGREDIENT});
+    }
+
     return (
         <>
             <AppHeader/>
-            <Routes>
+            <Routes location={background || location}>
                 <Route path='/' element={<HomePage/>}/>
-                <Route path='/login' element={<PrivateRoute isAuth={!isAuth} to='/'><LoginPage/></PrivateRoute>}/>
-                <Route path='/register' element={<PrivateRoute isAuth={!isAuth} to='/'><RegisterPage/></PrivateRoute>}/>
-                <Route path='/forgot-password'
-                       element={<PrivateRoute isAuth={!isAuth} to='/'><ForgottenPasswordPage/></PrivateRoute>}/>
+                {!isAuth && <Route path='/login' element={<LoginPage/>}/>}
+                {!isAuth && <Route path='/register' element={<RegisterPage/>}/>}
+                {!isAuth && <Route path='/forgot-password' element={<ForgottenPasswordPage/>}/>}
                 <Route path='/reset-password'
                        element={<PrivateRoute isAuth={resetEmailSent} to="/login"><ResetPasswordPage/></PrivateRoute>}/>
                 <Route path='/profile'
-                       element={<PrivateRoute isAuth={isAuth} to='/login'><ProfilePage/></PrivateRoute>}/>
-                {background && <Route path="/ingredients/:id" element={<HomePage/>}/>}
+                       element={<PrivateRoute to='/login'><ProfilePage/></PrivateRoute>}/>
                 <Route path='/ingredients/:id' element={<IngredientsPage/>}/>
             </Routes>
+            {background && (
+                <Routes>
+                    <Route
+                        path="/ingredients/:id"
+                        element={
+                            <Modal onCloseModal={closeModal}>
+                                <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>)}
         </>
     );
 }
