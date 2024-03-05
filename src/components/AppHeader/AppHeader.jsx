@@ -39,7 +39,7 @@ const AppHeader = () => {
                         </li>
                         <li className="justify-center flex pl-[20px]">
                             <NavLink
-                                to='/order-feed'
+                                to='/feed'
                                 style={({isActive}) => (isActive ? activeStyle : undefined)}
                                 className="text text_type_main-default text-purple-light rounded-modal cursor-pointer bg-transparent gap-2 flex-none flex no-underline !py-[16px] !px-[20px] hover:shadow-details-shadow">
                                 <ListIcon type={toggleStyleIcon('/order-feed')}/>

@@ -15,6 +15,8 @@ import {checkUserAccess} from "../../services/actions/userAction";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {RESET_CURRENT_INGREDIENT} from "../../services/actions/currentIngredientAction";
+import FeedPage from "../../pages/feed/feed";
+import OrderPage from "../../pages/order-page/order-page";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -45,6 +47,8 @@ const App = () => {
             <AppHeader/>
             <Routes location={background || location}>
                 <Route path='/' element={<HomePage/>}/>
+                <Route path="/feed" element={<FeedPage />} />
+                <Route path="/feed/:id" element={<OrderPage isAuth={isAuth} />} />
                 {!isAuth && <Route path='/login' element={<LoginPage/>}/>}
                 {!isAuth && <Route path='/register' element={<RegisterPage/>}/>}
                 {!isAuth && <Route path='/forgot-password' element={<ForgottenPasswordPage/>}/>}

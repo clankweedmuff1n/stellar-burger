@@ -26,7 +26,7 @@ const OrderConstructor = ({price}) => {
     return (
         <div className="flex justify-end items-center gap-10 mt-[40px] mr-[15px] mb-[50px] ml-0">
             <div className="gap-2 flex items-center">
-                <p className="text text_type_digits-medium">
+                <p className="text text_type_digits-medium ">
                     {price}
                 </p>
                 <CurrencyIcon type={"primary"}/>
