@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import {useState} from "react";
 import {NavLink, useNavigate, useLocation, Outlet} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -44,7 +44,7 @@ export default function ProfilePage() {
                             Профиль
                         </NavLink>
                         <NavLink
-                            to='order-page'
+                            to='orders'
                             className="text text_type_main-medium text_color_inactive flex min-h-[65px] items-center"
                             style={({isActive}) => (isActive ? activeStyle : undefined)}
                             state={{order: true}}

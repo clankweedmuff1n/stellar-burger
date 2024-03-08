@@ -7,7 +7,7 @@ export default function PrivateRoute({ children, anonymous = false }) {
     const from = location.state?.from || '/';
     // Если разрешен неавторизованный доступ, а пользователь авторизован...
 
-    if (isLoggedIn === undefined) return <></>;
+    if (isLoggedIn === undefined) return <Navigate to="/login" state={{ from: location}}/>;
 
     if (anonymous && isLoggedIn) {
         // ...то отправляем его на предыдущую страницу

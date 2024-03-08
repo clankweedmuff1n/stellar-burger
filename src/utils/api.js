@@ -11,11 +11,12 @@ const CHECK_ACCESS_URL = BASE_URL + "auth/user";
 const RESET_PASSWORD_URL = BASE_URL + "password-reset/reset";
 const FORGOT_PASSWORD_URL = BASE_URL + "password-reset";
 
-const sendOrderRequest = async (arrayId) => {
+const sendOrderRequest = async (arrayId, accessToken) => {
     const res = await fetch(ORDER_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify({
             'ingredients': arrayId,

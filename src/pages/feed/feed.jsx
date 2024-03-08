@@ -1,5 +1,5 @@
 import OrderFeedList from "../../components/OrderFeedList/OrderFeedList";
-import {wsConnectionStart} from "../../services/actions/socketAction";
+import {wsConnectionClose, wsConnectionStart} from "../../services/actions/socketAction";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useMemo} from "react";
 import OrderCounters from "../../components/OrderCounters/OrderCounters";
@@ -37,7 +37,7 @@ export default function FeedPage() {
     useEffect(() => {
         dispatch(wsConnectionStart(WS_URL_ALL));
         return () => {
-
+            dispatch(wsConnectionClose());
         };
     }, [dispatch]);
 

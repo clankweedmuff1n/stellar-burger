@@ -17,6 +17,8 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {RESET_CURRENT_INGREDIENT} from "../../services/actions/currentIngredientAction";
 import FeedPage from "../../pages/feed/feed";
 import OrderPage from "../../pages/order-page/order-page";
+import BurgerDetails from "../BurgerDetails/BurgerDetails";
+import UserOrder from "../../pages/user-order/user-order";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -34,7 +36,11 @@ const App = () => {
 
     let location = useLocation();
 
-    let background = location.state && location.state.background;
+    const background =
+        location.state?.locationIngredient ||
+        location.state?.locationFeed ||
+        location.state?.locationProfile ||
+        location;
 
     function closeModal(e) {
         e.stopPropagation();
@@ -47,18 +53,21 @@ const App = () => {
             <AppHeader/>
             <Routes location={background || location}>
                 <Route path='/' element={<HomePage/>}/>
-                <Route path="/feed" element={<FeedPage />} />
-                <Route path="/feed/:id" element={<OrderPage isAuth={isAuth} />} />
+                <Route path="/feed" element={<FeedPage/>}/>
+                <Route path="/feed/:id" element={<OrderPage isAuth={isAuth}/>}/>
+                <Route path="profile/orders/:id" element={<OrderPage isAuth={isAuth}/>}/>
                 {!isAuth && <Route path='/login' element={<LoginPage/>}/>}
                 {!isAuth && <Route path='/register' element={<RegisterPage/>}/>}
                 {!isAuth && <Route path='/forgot-password' element={<ForgottenPasswordPage/>}/>}
                 <Route path='/reset-password'
                        element={<PrivateRoute isAuth={resetEmailSent} to="/login"><ResetPasswordPage/></PrivateRoute>}/>
                 <Route path='/profile'
-                       element={<PrivateRoute to='/login'><ProfilePage/></PrivateRoute>}/>
+                       element={<PrivateRoute to='/login'><ProfilePage/></PrivateRoute>}>
+                    <Route path="orders" element={<UserOrder/>}/>
+                </Route>
                 <Route path='/ingredients/:id' element={<IngredientsPage/>}/>
             </Routes>
-            {background && (
+            {location.state?.locationIngredient && (
                 <Routes>
                     <Route
                         path="/ingredients/:id"
@@ -68,7 +77,32 @@ const App = () => {
                             </Modal>
                         }
                     />
-                </Routes>)}
+                </Routes>
+            )}
+            {location.state?.locationFeed && (
+                <Routes>
+                    <Route
+                        path="/feed/:id"
+                        element={
+                            <Modal onCloseModal={closeModal}>
+                                <BurgerDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
+            {location.state?.locationProfile && (
+                <Routes>
+                    <Route
+                        path="/profile/orders/:id"
+                        element={
+                            <Modal onCloseModal={closeModal}>
+                                <BurgerDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
         </>
     );
 }
