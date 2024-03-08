@@ -15,7 +15,7 @@ const IngredientsList = React.forwardRef((props, ref) => {
                 {props.ingredients.map((item) => {
                     return <Link key={item._id}
                                  to={`/ingredients/${item._id}`}
-                                 state={{background: location}}>
+                                 state={{locationIngredient: location}}>
                         <IngredientsItem ingredient={item}/>
                     </Link>
                 })}

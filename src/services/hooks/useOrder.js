@@ -7,20 +7,23 @@ export default function useOrder(order) {
 
     const getOrderIngredientsList = () => {
         const list = [];
-        order.ingredients.forEach((ingredientId) => {
-            ingredients.forEach((ingredient) => {
-                if (ingredient._id === ingredientId) {
-                    list.push(ingredient);
-                }
+
+        if (order) {
+            order.ingredients.forEach((ingredientId) => {
+                ingredients.forEach((ingredient) => {
+                    if (ingredient._id === ingredientId) {
+                        list.push(ingredient);
+                    }
+                });
             });
-        });
+        }
 
         return list;
     };
 
     const getOrderStatus = () => {
         if (!order || !order.status) {
-            return undefined;
+            return "Неизвестно";
         }
         if (order.status === "done") {
             return "Выполнен";

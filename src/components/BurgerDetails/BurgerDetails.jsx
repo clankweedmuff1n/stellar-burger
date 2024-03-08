@@ -9,11 +9,12 @@ export default function BurgerDetails({titleClassName}) {
     const {id} = useParams();
     const order = orders.find((item) => item._id === id);
 
-    const {orderIngredientsList, orderPrice, orderStatus, orderDate} =
-        useOrder(order);
+    const {orderIngredientsList, orderPrice, orderStatus, orderDate} = useOrder(order);
 
-    return (
-        <div
+    if (!order) return <></>;
+
+    return order &&
+        (<div
             className={`w-[640px] ${
                 titleClassName ? undefined : "mt-[60px]"
             }`}
@@ -37,6 +38,5 @@ export default function BurgerDetails({titleClassName}) {
                     <p className="text text_type_digits-default">{orderPrice}</p>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
 }

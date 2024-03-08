@@ -44,7 +44,7 @@ const App = () => {
 
     function closeModal(e) {
         e.stopPropagation();
-        navigate("/");
+        navigate(-1);
         dispatch({type: RESET_CURRENT_INGREDIENT});
     }
 

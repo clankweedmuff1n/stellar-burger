@@ -14,7 +14,6 @@ export default function OrderPage({isAuth}) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getIngredient());
         if (isAuth) {
             dispatch(wsConnectionStart(getSocketUrl()));
         } else {

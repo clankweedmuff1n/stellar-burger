@@ -17,7 +17,6 @@ const BurgerConstructor = () => {
         fillingList: store.burgerConstructorReducer.constructorFillingList,
     }))
 
-
     function dropHandler(ingredient) {
         dispatch({type: ADD_INGREDIENT, constructorItemId: v4(), payload: ingredient});
     }

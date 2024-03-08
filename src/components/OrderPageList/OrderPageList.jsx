@@ -13,7 +13,7 @@ export default function OrderPageList({ ingredients }) {
 
     const filteredList = Array.from(new Set(ingredients));
 
-    return (
+    return filteredList && (
         <div className="mt-[60px]">
             <p className="text text_type_main-medium mb-6">Состав:</p>
             <ul className="m-0 p-0 pr-[24px] flex flex-col gap-4 list-none overflow-y-scroll max-h-[316px]">
