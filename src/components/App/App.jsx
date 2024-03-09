@@ -55,7 +55,7 @@ const App = () => {
                 <Route path='/' element={<HomePage/>}/>
                 <Route path="/feed" element={<FeedPage/>}/>
                 <Route path="/feed/:id" element={<OrderPage isAuth={isAuth}/>}/>
-                <Route path="profile/orders/:id" element={<OrderPage isAuth={isAuth}/>}/>
+                <Route path="profile/orders/:id" element={<PrivateRoute><OrderPage isAuth={isAuth}/></PrivateRoute>}/>
                 {!isAuth && <Route path='/login' element={<LoginPage/>}/>}
                 {!isAuth && <Route path='/register' element={<RegisterPage/>}/>}
                 {!isAuth && <Route path='/forgot-password' element={<ForgottenPasswordPage/>}/>}
@@ -96,9 +96,11 @@ const App = () => {
                     <Route
                         path="/profile/orders/:id"
                         element={
-                            <Modal onCloseModal={closeModal}>
-                                <BurgerDetails/>
-                            </Modal>
+                            <PrivateRoute>
+                                <Modal onCloseModal={closeModal}>
+                                    <BurgerDetails/>
+                                </Modal>
+                            </PrivateRoute>
                         }
                     />
                 </Routes>
