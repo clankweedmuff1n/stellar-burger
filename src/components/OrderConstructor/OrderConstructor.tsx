@@ -28,7 +28,6 @@ const OrderConstructor: FC<IOrderConstructor> = ({price}) => {
     }
 
     const sendOrder = () => {
-        isAuth ? console.log("AUTH") : console.log("UNAUTH")
         isAuth ? dispatch(makeOrder(ingredients)) : navigate('/login');
     }
 

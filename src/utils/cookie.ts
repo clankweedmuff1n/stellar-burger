@@ -1,6 +1,6 @@
 export function getToken(name: string): string | undefined {
-    if (localStorage.getItem(name) == null) return undefined;
-    else localStorage.getItem(name);
+    if (localStorage.getItem(name) === null) return undefined;
+    else return localStorage.getItem(name)!;
 }
 
 export function parseToken(name: string): string {

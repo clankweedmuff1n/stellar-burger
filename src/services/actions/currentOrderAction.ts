@@ -40,10 +40,8 @@ export function makeOrder (ingredients: IConstructorInitialState)  {
             ingredients.constructorBunElement._id,
         ]
         : [];
-    console.log("TEST")
-    return function (dispatch: AppDispatch) {
-        dispatch(getOrderRequest());
-        sendOrderRequest(arrayId, getToken('accessToken'))
+    return function (dispatch: AppDispatch) {        dispatch(getOrderRequest());
+        sendOrderRequest(arrayId, getToken("accessToken"))
             .then((res) => {
                 dispatch(getOrderSuccess(res.order.number));
             })
@@ -62,3 +60,4 @@ export function makeOrder (ingredients: IConstructorInitialState)  {
             });
     };
 }
+
