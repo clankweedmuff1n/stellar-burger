@@ -1,15 +1,14 @@
 import {ChangeEvent, FormEvent, FormEventHandler, useState} from "react";
 import {NavLink, useNavigate, useLocation, Outlet} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
 import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {logoutUser, changeUserData} from "../../services/actions/userAction";
-import {AppDispatch, RootState} from "../../services/store";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export default function ProfilePage() {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const {user} = useSelector((store: RootState) => store.userReducer);
+    const {user} = useSelector((store) => store.userReducer);
     const [userData, setUserDate] = useState(user);
     const [input, setInput] = useState({name: false, email: false});
     const activeStyle = {color: "#f2f2f3",}

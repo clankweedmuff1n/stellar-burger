@@ -1,14 +1,13 @@
 import {EmailInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {setForgotPasswordFormValue, forgotPassword} from "../../services/actions/userAction";
 import {Link, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
 import {ChangeEvent, FormEvent} from "react";
-import {AppDispatch, RootState} from "../../services/store";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export default function ForgottenPasswordPage() {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {forgotPasswordForm} = useSelector((store: RootState) => store.userReducer);
+    const {forgotPasswordForm} = useSelector((store) => store.userReducer);
 
     function fieldOnChange(e: ChangeEvent<HTMLInputElement>) {
         dispatch(setForgotPasswordFormValue(e.target.name, e.target.value));

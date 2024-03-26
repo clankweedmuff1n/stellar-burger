@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { FC, ReactNode } from "react";
+import {getToken} from "../../utils/cookie";
 
 
 interface IPrivateRoute {
@@ -9,6 +10,7 @@ interface IPrivateRoute {
 }
 
 const PrivateRoute: FC<IPrivateRoute> = ({ children, to, isAuth }) => {
+    if (isAuth === undefined && getToken("accessToken") !== undefined) return <></>;
     return <>{isAuth ? children : <Navigate to={to} replace/>}</>
 };
 

@@ -15,15 +15,14 @@ import OrderPage from "../../pages/order-page/order-page";
 import UserOrder from "../../pages/user-order/user-order";
 import Modal from "../Modal/Modal";
 import React, {useEffect, FC} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../../services/store";
 import Layout from "../../pages/Layout/Layout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import {RESET_CURRENT_INGREDIENT} from "../../services/constants";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 
 const App: FC = () => {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ const App: FC = () => {
         dispatch(checkUserAccess());
     }, []);
 
-    const {isAuth, resetEmailSent} = useSelector((store: RootState) => ({
+    const {isAuth, resetEmailSent} = useSelector((store) => ({
         isAuth: store.userReducer.isAuth,
         resetEmailSent: store.userReducer.resetEmailSent,
     }));

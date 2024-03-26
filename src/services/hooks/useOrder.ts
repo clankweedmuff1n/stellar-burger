@@ -1,11 +1,10 @@
-import {useSelector} from "react-redux";
 import {IOrder} from "../types/Order.type";
-import {RootState} from "../store";
 import {IIngredient} from "../types/Ingredient.type";
+import {useSelector} from "../hooks";
 
 export default function useOrder(order: IOrder | undefined) {
     const ingredients = useSelector(
-        (store: RootState) => store.burgerIngredientsReducer.burgerIngredientsList
+        (store) => store.burgerIngredientsReducer.burgerIngredientsList
     );
 
     const getOrderIngredientsList = () => {

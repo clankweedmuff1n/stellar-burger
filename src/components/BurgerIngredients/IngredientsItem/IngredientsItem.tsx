@@ -1,10 +1,9 @@
 import React, {FC, useMemo} from 'react';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useDispatch, useSelector} from 'react-redux';
 import {useDrag} from 'react-dnd';
 import {IIngredient} from "../../../services/types/Ingredient.type";
-import {RootState} from "../../../services/store";
 import {SET_CURRENT_INGREDIENT} from "../../../services/constants";
+import {useDispatch, useSelector} from "../../../services/hooks";
 
 interface IIngredientsItem {
     ingredient: IIngredient;
@@ -12,8 +11,8 @@ interface IIngredientsItem {
 
 const IngredientsItem: FC<IIngredientsItem> = ({ingredient}) => {
     const dispatch = useDispatch();
-    const constructorIngredients = useSelector((store: RootState) => store.burgerConstructorReducer);
-    const burgerIngredients = useSelector((store: RootState) => store.burgerIngredientsReducer);
+    const constructorIngredients = useSelector((store) => store.burgerConstructorReducer);
+    const burgerIngredients = useSelector((store) => store.burgerIngredientsReducer);
 
     const setCurrentIngredient = () => {
         dispatch({type: SET_CURRENT_INGREDIENT, payload: ingredient});

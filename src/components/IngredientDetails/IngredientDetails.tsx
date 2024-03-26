@@ -1,9 +1,8 @@
-import { useSelector } from 'react-redux';
 import {useParams} from "react-router-dom";
-import { RootState } from "../../services/store";
+import {useSelector} from "../../services/hooks";
 
 const IngredientDetails = () => {
-    const ingredients = useSelector((store: RootState) => store.burgerIngredientsReducer.burgerIngredientsList);
+    const ingredients = useSelector((store) => store.burgerIngredientsReducer.burgerIngredientsList);
     const { id } = useParams();
     const ingredient = ingredients.find((item) => item._id === id);
 

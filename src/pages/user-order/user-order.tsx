@@ -5,13 +5,12 @@ import {
 import {checkUserAccess} from "../../services/actions/userAction";
 import OrderFeedList from "../../components/OrderFeedList/OrderFeedList";
 import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {getSocketUrl} from "../../utils/variables";
-import {AppDispatch, RootState} from "../../services/store";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export default function UserOrder() { //список всех заказов при переходе на вкладку заказы внутри страницы профиля
-    const dispatch: AppDispatch = useDispatch();
-    const {orders, errorState} = useSelector((store: RootState) => store.socketReducer);
+    const dispatch = useDispatch();
+    const {orders, errorState} = useSelector((store) => store.socketReducer);
 
     useEffect(() => {
         dispatch(wsConnectionStart(getSocketUrl()));

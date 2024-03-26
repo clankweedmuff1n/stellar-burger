@@ -2,19 +2,18 @@ import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-compon
 import {useMemo} from 'react';
 import {useDrop} from 'react-dnd';
 import FillingItem from '../FillingItem/FillingItem';
-import {useSelector, useDispatch} from 'react-redux';
 import OrderConstructor from '../OrderConstructor/OrderConstructor';
 import loader from '../../images/loader.svg';
 import {Reorder} from "framer-motion";
 import {v4} from 'uuid';
-import {AppDispatch, RootState} from "../../services/store";
 import {IIngredient} from "../../services/types/Ingredient.type";
 import {ADD_INGREDIENT, SORT_INGREDIENTS} from "../../services/constants";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 const BurgerConstructor = () => {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    const {bun, fillingList} = useSelector((store: RootState) => ({
+    const {bun, fillingList} = useSelector((store) => ({
         bun: store.burgerConstructorReducer.constructorBunElement,
         fillingList: store.burgerConstructorReducer.constructorFillingList,
     }))

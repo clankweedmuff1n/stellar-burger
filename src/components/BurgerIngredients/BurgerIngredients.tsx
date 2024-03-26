@@ -1,10 +1,9 @@
 import {useMemo, useState, useEffect} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from './IngredientsList/IngredientsList';
-import {useSelector} from 'react-redux';
 import {useInView} from 'react-intersection-observer';
-import {RootState} from "../../services/store";
 import {IIngredient} from "../../services/types/Ingredient.type";
+import {useSelector} from "../../services/hooks";
 
 interface IIngredientsSort {
     buns: Array<IIngredient>;
@@ -14,7 +13,7 @@ interface IIngredientsSort {
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('first');
-    const ingredients = useSelector((store: RootState) => store.burgerIngredientsReducer.burgerIngredientsList);
+    const ingredients = useSelector((store) => store.burgerIngredientsReducer.burgerIngredientsList);
 
     const [bunTabRef, inViewTabBun] = useInView({threshold: 0});
     const [sauceTabRef, inViewTabSauce] = useInView({threshold: 0});

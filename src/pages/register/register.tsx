@@ -1,15 +1,14 @@
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from "../../services/hooks";
 import {Link, useNavigate} from 'react-router-dom';
 import {Button, EmailInput, PasswordInput, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import {setRegisterFormValue, registerUser} from '../../services/actions/userAction';
-import {AppDispatch, RootState} from "../../services/store";
 import {ChangeEvent, FormEvent} from "react";
 
 export default function RegisterPage() {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {registerForm} = useSelector((store: RootState) => store.userReducer);
+    const {registerForm} = useSelector((store) => store.userReducer);
 
     function fieldOnChange(e: ChangeEvent<HTMLInputElement>) {
         dispatch(setRegisterFormValue(e.target.name, e.target.value));

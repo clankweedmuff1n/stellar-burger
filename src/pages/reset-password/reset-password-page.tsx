@@ -1,15 +1,14 @@
 import {Input, Button, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from 'react-router-dom';
 import {setResetPasswordFormValue, resetPassword} from "../../services/actions/userAction";
-import {AppDispatch, RootState} from "../../services/store";
 import {ChangeEvent, FormEvent} from "react";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export default function ResetPasswordPage() {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {resetPasswordForm} = useSelector((store: RootState) => store.userReducer);
+    const {resetPasswordForm} = useSelector((store) => store.userReducer);
 
     function fieldOnChange(e: ChangeEvent<HTMLInputElement>) {
         dispatch(setResetPasswordFormValue(e.target.name, e.target.value));

@@ -1,23 +1,15 @@
 import OrderFeedList from "../../components/OrderFeedList/OrderFeedList";
 import { wsConnectionStart } from "../../services/actions/socketAction";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import OrderCounters from "../../components/OrderCounters/OrderCounters";
 import { WS_URL_ALL } from "../../utils/variables";
 import {IOrder} from "../../services/types/Order.type";
-
-interface RootState {
-    socketReducer: {
-        orders: IOrder[];
-        total: number;
-        totalToday: number;
-    };
-}
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export default function FeedPage() {
     const dispatch = useDispatch();
     const { orders, total, totalToday } = useSelector(
-        (store: RootState) => store.socketReducer
+        (store) => store.socketReducer
     ) || { orders: [], total: 0, totalToday: 0 };
 
     const { doneList, workList } = useMemo(() => {

@@ -2,13 +2,12 @@ import {Button, EmailInput, PasswordInput} from '@ya.praktikum/react-developer-b
 import React, {ChangeEvent, FormEvent} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {setLoginFormValue, loginUser} from '../../services/actions/userAction';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from "../../services/store";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export default function LoginPage() {
     const navigate = useNavigate();
-    const dispatch: AppDispatch = useDispatch();
-    const {loginForm} = useSelector((store: RootState) => store.userReducer);
+    const dispatch = useDispatch();
+    const {loginForm} = useSelector((store) => store.userReducer);
 
 
     function fieldOnChange(e: ChangeEvent<HTMLInputElement>) {

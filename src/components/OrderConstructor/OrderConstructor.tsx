@@ -1,25 +1,24 @@
 import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useSelector, useDispatch} from 'react-redux';
 import Modal from '../Modal/Modal';
 import {makeOrder, resetOrder} from '../../services/actions/currentOrderAction';
 import OrderDetails
     from '../OrderDetails/OrderDetails';
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
-import {AppDispatch, RootState} from "../../services/store";
 import {FC} from "react";
 import {IConstructorInitialState} from "../../services/types/BurgerConstructor.types";
 import {resetIngredient} from "../../services/actions/burgerConstructorAction";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 interface IOrderConstructor {
     price: number;
 }
 
 const OrderConstructor: FC<IOrderConstructor> = ({price}) => {
-    const order = useSelector((store: RootState) => store.currentOrderReducer.order);
-    const dispatch: AppDispatch = useDispatch();
-    const ingredients: IConstructorInitialState  = useSelector((store: RootState) => store.burgerConstructorReducer);
-    const isAuth = useSelector((store: RootState) => store.userReducer.isAuth);
+    const order = useSelector((store) => store.currentOrderReducer.order);
+    const dispatch = useDispatch();
+    const ingredients: IConstructorInitialState  = useSelector((store) => store.burgerConstructorReducer);
+    const isAuth = useSelector((store) => store.userReducer.isAuth);
     const navigate = useNavigate();
 
     const closeModal = () => {

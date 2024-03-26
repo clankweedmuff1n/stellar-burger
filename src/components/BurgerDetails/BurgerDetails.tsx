@@ -1,17 +1,16 @@
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
 import OrderPageList from "../OrderPageList/OrderPageList";
 import useOrder from "../../services/hooks/useOrder";
-import {RootState} from "../../services/store";
 import {FC} from "react";
+import {useSelector} from "../../services/hooks";
 
 interface IBurgerDetails {
     titleClassName?: string;
 }
 
 export const BurgerDetails: FC<IBurgerDetails> = ({titleClassName}) => {
-    const orders = useSelector((store: RootState) => store.socketReducer.orders);
+    const orders = useSelector((store) => store.socketReducer.orders);
     const {id} = useParams();
     const order = orders.find((item) => item._id === id);
 
