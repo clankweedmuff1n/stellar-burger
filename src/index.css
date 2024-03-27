@@ -1,3 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+ul::-webkit-scrollbar { /* doesnt work =( */
+  width: 0 !important;
+}
+
+ul::-webkit-scrollbar-track {
+  background-color: #2f2f37 !important;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background: #8585ad !important;
+  border: 1px solid #8585ad !important;
 }
