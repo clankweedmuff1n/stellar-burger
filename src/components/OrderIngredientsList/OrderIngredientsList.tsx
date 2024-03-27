@@ -1,6 +1,12 @@
 import OrderIngredientsItem from '../OrderIngredientsItem/OrderIngredientsItem';
+import {IIngredient} from "../../services/types/Ingredient.type";
+import {FC} from "react";
 
-export default function OrderIngredientsList({ingredients}) {
+interface IOrderIngredientsList {
+    ingredients: IIngredient[];
+}
+
+const OrderIngredientsList: FC<IOrderIngredientsList> = ({ingredients}) => {
     function showCounter() {
         return ingredients.length - 6 !== 0;
     }
@@ -30,3 +36,5 @@ export default function OrderIngredientsList({ingredients}) {
         </ul>
     )
 }
+
+export default OrderIngredientsList;

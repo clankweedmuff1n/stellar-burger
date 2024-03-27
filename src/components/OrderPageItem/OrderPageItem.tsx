@@ -1,6 +1,13 @@
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {IIngredient} from "../../services/types/Ingredient.type";
+import {FC} from "react";
 
-export default function OrderPageItem({ingredient, counter}) {
+interface IOrderPageItem {
+    ingredient: IIngredient;
+    counter: number;
+}
+
+const OrderPageItem: FC<IOrderPageItem> = ({ingredient, counter}) => {
     return (
         <li className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -24,3 +31,5 @@ export default function OrderPageItem({ingredient, counter}) {
         </li>
     );
 }
+
+export default OrderPageItem;

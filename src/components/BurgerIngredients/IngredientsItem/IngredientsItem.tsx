@@ -1,14 +1,19 @@
-import React, {useMemo} from 'react';
-import itemPropTypes from '../../../utils/prop-types';
+import React, {FC, useMemo} from 'react';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDispatch, useSelector} from 'react-redux';
-import {SET_CURRENT_INGREDIENT} from '../../../services/actions/currentIngredientAction';
 import {useDrag} from 'react-dnd';
+import {IIngredient} from "../../../services/types/Ingredient.type";
+import {RootState} from "../../../services/store";
+import {SET_CURRENT_INGREDIENT} from "../../../services/constants";
 
-const IngredientsItem = ({ingredient}) => {
+interface IIngredientsItem {
+    ingredient: IIngredient;
+}
+
+const IngredientsItem: FC<IIngredientsItem> = ({ingredient}) => {
     const dispatch = useDispatch();
-    const constructorIngredients = useSelector((store) => store.burgerConstructorReducer);
-    const burgerIngredients = useSelector((store) => store.burgerIngredientsReducer);
+    const constructorIngredients = useSelector((store: RootState) => store.burgerConstructorReducer);
+    const burgerIngredients = useSelector((store: RootState) => store.burgerIngredientsReducer);
 
     const setCurrentIngredient = () => {
         dispatch({type: SET_CURRENT_INGREDIENT, payload: ingredient});
@@ -20,7 +25,7 @@ const IngredientsItem = ({ingredient}) => {
     })
 
     const counter = useMemo(() => {
-        const counters = {};
+        const counters: Record<string, number> = {};
         burgerIngredients.burgerIngredientsList.forEach((ingredient) => {
             counters[ingredient._id] = constructorIngredients.constructorFillingList.filter(
                 (constructorItem) => constructorItem._id === ingredient._id
@@ -32,7 +37,7 @@ const IngredientsItem = ({ingredient}) => {
         return counters;
     }, [constructorIngredients, burgerIngredients]);
 
-    const getIngredientCounter = (ingredientId) => counter[ingredientId];
+    const getIngredientCounter = (ingredientId: string) => counter[ingredientId];
 
     return (
         <li ref={dragRef} className="flex flex-col items-center relative max-w-[284px] cursor-pointer box-border mb-8" onClick={setCurrentIngredient}>
@@ -42,15 +47,11 @@ const IngredientsItem = ({ingredient}) => {
             <img ref={dragPreviewRef} src={ingredient.image} alt={ingredient.name}/>
             <div className="justify-center flex mt-2">
                 <p className='text text_type_digits-default mr-2'>{ingredient.price}</p>
-                <CurrencyIcon type='primery'/></div>
+                <CurrencyIcon type='primary'/></div>
             <p className="text-center text text_type_main-default mt-2">{ingredient.name}</p>
         </li>
     )
 
-}
-
-IngredientsItem.propTypes = {
-    ingredient: itemPropTypes,
 }
 
 export default IngredientsItem;

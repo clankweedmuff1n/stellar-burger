@@ -4,15 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import OrderCounters from "../../components/OrderCounters/OrderCounters";
 import { WS_URL_ALL } from "../../utils/variables";
-
-interface Order {
-    number: string;
-    status: string;
-}
+import {IOrder} from "../../services/types/Order.type";
 
 interface RootState {
     socketReducer: {
-        orders: Order[];
+        orders: IOrder[];
         total: number;
         totalToday: number;
     };
@@ -29,7 +25,7 @@ export default function FeedPage() {
             return { doneList: [], workList: [] };
         }
         return orders.reduce(
-            (count: { doneList: string[]; workList: string[] }, item: Order) => {
+            (count: { doneList: Array<number>; workList: Array<number> }, item: IOrder) => {
                 // eslint-disable-next-line default-case
                 switch (item.status) {
                     case "done":

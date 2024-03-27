@@ -1,19 +1,19 @@
-import {useParams} from "react-router-dom";
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {getIngredient} from "../../services/actions/burgerIngredientsAction";
-import {wsConnectionStart, wsConnectionClose} from "../../services/actions/socketAction";
-import {WS_URL_ALL} from "../../utils/variables";
-import {getSocketUrl} from "../../utils/variables";
+import { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getIngredient } from "../../services/actions/burgerIngredientsAction";
+import { wsConnectionStart, wsConnectionClose } from "../../services/actions/socketAction";
+import { WS_URL_ALL } from "../../utils/variables";
+import { getSocketUrl } from "../../utils/variables";
 import BurgerDetails from "../../components/BurgerDetails/BurgerDetails";
-import {AppDispatch, RootState} from "../../services/store";
-import {IOrder} from "../../services/types/Order.type";
+import { AppDispatch, RootState } from "../../services/store";
+import { IOrder } from "../../services/types/Order.type";
 
-interface Props {
-    isAuth: boolean;
+interface IOrderPage {
+    isAuth: boolean | undefined;
 }
 
-export default function OrderPage({isAuth}: Props) {
+const OrderPage: FC<IOrderPage> = ({ isAuth }) => {
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
@@ -26,21 +26,20 @@ export default function OrderPage({isAuth}: Props) {
         return () => {
             dispatch(wsConnectionClose());
         };
-    }, [dispatch, isAuth]);
+    }, []);
 
     const orders = useSelector((store: RootState) => store.socketReducer.orders);
-    const currentOrder = useSelector((store: RootState) => store.currentOrderReducer.order);
 
-    const {id} = useParams<{ id: string }>();
-
-    const order: IOrder | undefined = orders.find((item): boolean => item._id === id);
-    const selectedOrder = order || currentOrder as IOrder | undefined;
+    const { id } = useParams();
+    const order = orders.find((item: IOrder) => item._id === id);
 
     return (
-        selectedOrder && (
+        <> { order && (
             <section className="mt-[122px] flex justify-center">
                 <BurgerDetails titleClassName="text-center"/>
             </section>
-        )
+        )} </>
     );
 }
+
+export default OrderPage;

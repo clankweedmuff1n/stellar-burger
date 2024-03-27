@@ -26,44 +26,39 @@ const getOrderFailed = (text: string): IGetOrderFailed => {
     };
 };
 
-export const resetOrder = (): IResetOrder => {
+export const resetOrder =  (): IResetOrder => {
     return {
         type: RESET_ORDER,
     };
 };
 
-export function makeOrder(ingredients: IConstructorInitialState) {
+export function makeOrder (ingredients: IConstructorInitialState)  {
+    const arrayId = ingredients.constructorBunElement
+        ? [
+            ingredients.constructorBunElement._id,
+            ...ingredients.constructorFillingList.map((item) => item._id),
+            ingredients.constructorBunElement._id,
+        ]
+        : [];
+    console.log("TEST")
     return function (dispatch: AppDispatch) {
-        if (
-            ingredients.constructorBunElement &&
-            ingredients.constructorBunElement._id
-        ) {
-            const arrayId = [
-                ingredients.constructorBunElement._id,
-                ...ingredients.constructorFillingList.map((item) => item._id),
-                ingredients.constructorBunElement._id,
-            ]
-            dispatch(getOrderRequest());
-            sendOrderRequest(arrayId, getToken('accessToken'))
-                .then((res) => {
-                    dispatch(getOrderSuccess(res.order.number));
-                })
-                .catch((err) => {
-                    if (err.message === 'jwt expired' || err.message === 'jwt malformed') {
-                        dispatch(refreshUserToken(getToken('refreshToken')))
-                            .then(() => {
-                                return sendOrderRequest(arrayId, getToken('accessToken'));
-                            })
+        dispatch(getOrderRequest());
+        sendOrderRequest(arrayId, getToken('accessToken'))
+            .then((res) => {
+                dispatch(getOrderSuccess(res.order.number));
+            })
+            .catch((err) => {
+                if(err.message === 'jwt expired' || err.message === 'jwt malformed') {
+                    dispatch(refreshUserToken(getToken('refreshToken'))).then(() => {
+                        sendOrderRequest(arrayId, getToken('accessToken'))
                             .then((res) => {
                                 dispatch(getOrderSuccess(res.order.number));
                             })
                             .catch(() => {
-                                dispatch(getOrderFailed('Ошибка при формировании заказа'));
+                                dispatch(getOrderFailed('Ошибка при формировании заказа'))
                             });
-                    }
-                });
-        } else {
-            dispatch(getOrderFailed('Ошибка при формировании заказа'));
-        }
+                    });
+                }
+            });
     };
 }

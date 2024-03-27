@@ -1,10 +1,16 @@
 import React from 'react';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import PropTypes from 'prop-types';
-import itemPropTypes from '../../../utils/prop-types';
 import {Link, useLocation} from "react-router-dom";
+import {IIngredient} from "../../../services/types/Ingredient.type";
 
-const IngredientsList = React.forwardRef((props, ref) => {
+interface IIngredientsList {
+    id: string;
+    title: string;
+    type: string;
+    ingredients: IIngredient[];
+}
+
+const IngredientsList = React.forwardRef<HTMLParagraphElement, IIngredientsList>((props, ref) => {
     let location = useLocation();
     return (
         <>
@@ -15,7 +21,7 @@ const IngredientsList = React.forwardRef((props, ref) => {
                 {props.ingredients.map((item) => {
                     return <Link key={item._id}
                                  to={`/ingredients/${item._id}`}
-                                 state={{background: location}}>
+                                 state={{locationIngredient: location}}>
                         <IngredientsItem ingredient={item}/>
                     </Link>
                 })}
@@ -23,11 +29,5 @@ const IngredientsList = React.forwardRef((props, ref) => {
         </>
     )
 })
-
-IngredientsList.propTypes = {
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    ingredients: PropTypes.arrayOf(itemPropTypes).isRequired,
-}
 
 export default IngredientsList;

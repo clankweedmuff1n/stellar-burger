@@ -1,65 +1,112 @@
-import React, {useEffect} from 'react';
-import AppHeader from '../AppHeader/AppHeader';
-import {useDispatch, useSelector} from 'react-redux';
-import {getIngredient} from '../../services/actions/burgerIngredientsAction';
-import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import HomePage from "../../pages/main/main";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginPage from "../../pages/login/login";
+import {Routes, Route, useLocation, useNavigate} from "react-router-dom";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import BurgerDetails from "../BurgerDetails/BurgerDetails";
+import {getIngredient} from "../../services/actions/burgerIngredientsAction";
 import RegisterPage from "../../pages/register/register";
 import ForgottenPasswordPage from "../../pages/forgot-password/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password/reset-password-page";
 import ProfilePage from "../../pages/profile/profile";
 import IngredientsPage from "../../pages/ingredients/ingredients-page";
 import {checkUserAccess} from "../../services/actions/userAction";
-import Modal from "../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import FeedPage from "../../pages/feed/feed";
 import OrderPage from "../../pages/order-page/order-page";
+import UserOrder from "../../pages/user-order/user-order";
+import Modal from "../Modal/Modal";
+import React, {useEffect, FC} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../services/store";
+import Layout from "../../pages/Layout/Layout";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import {RESET_CURRENT_INGREDIENT} from "../../services/constants";
 
-const App = () => {
+
+const App: FC = () => {
     const dispatch: AppDispatch = useDispatch();
+    const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getIngredient());
         dispatch(checkUserAccess());
-    }, [])
+    }, []);
 
     const {isAuth, resetEmailSent} = useSelector((store: RootState) => ({
         isAuth: store.userReducer.isAuth,
         resetEmailSent: store.userReducer.resetEmailSent,
     }));
 
-    let location = useLocation();
-
-    let background = location.state && location.state.background;
-
-    function closeModal(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function closeModal(e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) {
         e.stopPropagation();
-        navigate("/");
+        navigate(-1);
         dispatch({type: RESET_CURRENT_INGREDIENT});
     }
 
+
+    const background =
+        location.state?.locationIngredient ||
+        location.state?.locationFeed ||
+        location.state?.locationProfile ||
+        location;
+
     return (
         <>
-            <AppHeader/>
-            <Routes location={background || location}>
-                <Route path='/' element={<HomePage/>}/>
-                <Route path="/feed" element={<FeedPage />} />
-                <Route path="/feed/:id" element={<OrderPage isAuth={isAuth} />} />
-                {!isAuth && <Route path='/login' element={<LoginPage/>}/>}
-                {!isAuth && <Route path='/register' element={<RegisterPage/>}/>}
-                {!isAuth && <Route path='/forgot-password' element={<ForgottenPasswordPage/>}/>}
-                <Route path='/reset-password'
-                       element={<PrivateRoute isAuth={resetEmailSent} to="/login"><ResetPasswordPage/></PrivateRoute>}/>
-                <Route path='/profile'
-                       element={<PrivateRoute to='/login'><ProfilePage/></PrivateRoute>}/>
-                <Route path='/ingredients/:id' element={<IngredientsPage/>}/>
+            <Routes location={background}>
+                <Route path="/" element={<Layout/>}>
+                    <Route index element={<HomePage/>}/>
+                    <Route path="/ingredients/:id" element={<IngredientsPage/>}/>
+                    <Route path="/feed" element={<FeedPage/>}/>
+                    <Route path="feed/:id" element={<OrderPage isAuth={false}/>}/>
+                    <Route
+                        path="/profile"
+                        element={
+                            <PrivateRoute isAuth={isAuth} to="/login">
+                                <ProfilePage/>
+                            </PrivateRoute>
+                        }
+                    >
+                        <Route path="orders" element={<UserOrder/>}/></Route>
+                    <Route
+                        path="profile/orders/:id"
+                        element={<OrderPage isAuth={true}/>}
+                    />
+
+                    <Route
+                        path="/login"
+                        element={
+                            <PrivateRoute isAuth={!isAuth} to="/">
+                                <LoginPage/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/register"
+                        element={
+                            <PrivateRoute isAuth={!isAuth} to="/">
+                                <RegisterPage/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/forgot-password"
+                        element={
+                            <PrivateRoute isAuth={!isAuth} to="/">
+                                <ForgottenPasswordPage/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/reset-password"
+                        element={
+                            <PrivateRoute isAuth={resetEmailSent} to="/login">
+                                <ResetPasswordPage/>
+                            </PrivateRoute>
+                        }
+                    />
+                </Route>
             </Routes>
-            {background && (
+            {location.state?.locationIngredient && (
                 <Routes>
                     <Route
                         path="/ingredients/:id"
@@ -69,10 +116,34 @@ const App = () => {
                             </Modal>
                         }
                     />
-                </Routes>)}
+                </Routes>
+            )}
+            {location.state?.locationFeed && (
+                <Routes>
+                    <Route
+                        path="/feed/:id"
+                        element={
+                            <Modal onCloseModal={closeModal}>
+                                <BurgerDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
+            {location.state?.locationProfile && (
+                <Routes>
+                    <Route
+                        path="/profile/orders/:id"
+                        element={
+                            <Modal onCloseModal={closeModal}>
+                                <BurgerDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
         </>
     );
 }
 
 export default App;
-

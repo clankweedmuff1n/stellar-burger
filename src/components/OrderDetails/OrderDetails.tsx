@@ -1,8 +1,9 @@
 import done from '../../images/done.svg';
 import {useSelector} from 'react-redux';
+import {RootState} from "../../services/store";
 
 const OrderDetails = () => {
-    const order = useSelector((store) => store.currentOrderReducer.order);
+    const order = useSelector((store: RootState) => store.currentOrderReducer.order);
 
     return (
         <>

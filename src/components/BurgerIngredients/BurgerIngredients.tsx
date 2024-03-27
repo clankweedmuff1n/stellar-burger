@@ -6,6 +6,12 @@ import {useInView} from 'react-intersection-observer';
 import {RootState} from "../../services/store";
 import {IIngredient} from "../../services/types/Ingredient.type";
 
+interface IIngredientsSort {
+    buns: Array<IIngredient>;
+    mains: Array<IIngredient>;
+    sauces: Array<IIngredient>;
+}
+
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('first');
     const ingredients = useSelector((store: RootState) => store.burgerIngredientsReducer.burgerIngredientsList);
@@ -23,9 +29,10 @@ const BurgerIngredients = () => {
         }
     }, [inViewTabBun, inViewTabSauce, inViewTabMain]);
 
-    const {buns, mains, sauces}: {buns: IIngredient, mains: IIngredient, sauces: IIngredient} = useMemo(() => {
-        return ingredients.reduce(
-            (count, item: IIngredient) => {
+    const { buns, mains, sauces } = useMemo(() => {
+        return ingredients.reduce<IIngredientsSort>(
+            (count, item) => {
+                // eslint-disable-next-line default-case
                 switch (item.type) {
                     case "bun":
                         count.buns.push(item);
@@ -39,13 +46,13 @@ const BurgerIngredients = () => {
                 }
                 return count;
             },
-            {buns: [], mains: [], sauces: []}
+            { buns: [], mains: [], sauces: [] }
         );
     }, [ingredients]);
 
     const changeIngredients = (id: string) => {
         setCurrent(id);
-        document.querySelector(`#${id}`).scrollIntoView({behavior: 'smooth'});
+        document.querySelector(`#${id}`)!.scrollIntoView({behavior: 'smooth'});
     }
 
     return (

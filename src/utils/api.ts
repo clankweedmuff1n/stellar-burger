@@ -16,6 +16,11 @@ const RESET_PASSWORD_URL = BASE_URL + "password-reset/reset";
 const FORGOT_PASSWORD_URL = BASE_URL + "password-reset";
 
 const sendOrderRequest = async (arrayId: Array<string>, accessToken: string | undefined) => {
+
+    console.log(ORDER_URL);
+    console.log(accessToken);
+    console.log(arrayId);
+
     const res = await fetch(ORDER_URL, {
         method: 'POST',
         headers: {

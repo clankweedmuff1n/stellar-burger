@@ -14,7 +14,7 @@ const FillingItem: FC<IFillingItem> = ({filling}) => {
 
     return (
         <Reorder.Item whileDrag={{scale: 0.8}} value={filling} className="flex items-center gap-[11px]">
-            <DragIcon/>
+            <DragIcon type="primary"/>
             <ConstructorElement
                 text={filling.name}
                 price={filling.price}

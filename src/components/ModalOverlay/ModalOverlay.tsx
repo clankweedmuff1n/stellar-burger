@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, {FC, MouseEvent} from "react";
 
 interface IModalOverlay {

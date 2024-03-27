@@ -1,7 +1,13 @@
 import OrderPageItem from "../OrderPageItem/OrderPageItem";
+import {IIngredient} from "../../services/types/Ingredient.type";
+import {FC} from "react";
 
-export default function OrderPageList({ ingredients }) {
-    function counter(ingredient) {
+interface IOrderPageList {
+    ingredients: IIngredient[];
+}
+
+const OrderPageList: FC<IOrderPageList> = ({ingredients}) => {
+    function counter(ingredient: IIngredient) {
         let counter = 0;
         ingredients.forEach((item) => {
             if (item._id === ingredient._id) {
@@ -30,3 +36,5 @@ export default function OrderPageList({ ingredients }) {
         </div>
     );
 }
+
+export default OrderPageList;

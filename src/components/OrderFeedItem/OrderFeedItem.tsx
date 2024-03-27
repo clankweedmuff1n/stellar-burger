@@ -5,8 +5,15 @@ import {
 import {Link, useLocation} from "react-router-dom";
 import OrderIngredientsList from "../OrderIngredientsList/OrderIngredientsList";
 import useOrder from "../../services/hooks/useOrder";
+import {IOrder} from "../../services/types/Order.type";
+import {FC} from "react";
 
-export default function OrderFeedItem({isFeedList, order}) {
+interface IOrderFeedItem {
+    isFeedList: boolean;
+    order: IOrder;
+}
+
+const OrderFeedItem: FC<IOrderFeedItem> = ({isFeedList, order}) => {
     const {orderIngredientsList, orderPrice, orderStatus} = useOrder(order);
     const location = useLocation();
 
@@ -54,3 +61,5 @@ export default function OrderFeedItem({isFeedList, order}) {
         </li>
     );
 }
+
+export default OrderFeedItem;

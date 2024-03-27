@@ -38,7 +38,7 @@ const Modal: FC<IModal> = ({children, onCloseModal}) => {
                     style={{transform: "translate(-50%, -50%)"}}
                     className="w-[720px] bg-dark-bg shadow-shadow-modal flex flex-col rounded-modal box-border border-2 border-purple-dark z-20 items-center fixed top-[50%] left-[50%]" onClick={(e) => e.stopPropagation()}>
                     <button type='button' className="top-[60px] right-[40px] border-none absolute m-0 cursor-pointer p-0 bg-transparent" onClick={(e) => onCloseModal(e)}>
-                        <CloseIcon/>
+                        <CloseIcon type="primary"/>
                     </button>
                     {children}
                 </div>

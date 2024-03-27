@@ -1,15 +1,15 @@
 import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector, useDispatch} from 'react-redux';
 import Modal from '../Modal/Modal';
-import {RESET_ORDER} from '../../services/actions/currentOrderAction';
-import {makeOrder} from '../../services/actions/currentOrderAction';
+import {makeOrder, resetOrder} from '../../services/actions/currentOrderAction';
 import OrderDetails
     from '../OrderDetails/OrderDetails';
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
-import {RootState} from "../../services/store";
+import {AppDispatch, RootState} from "../../services/store";
 import {FC} from "react";
 import {IConstructorInitialState} from "../../services/types/BurgerConstructor.types";
+import {resetIngredient} from "../../services/actions/burgerConstructorAction";
 
 interface IOrderConstructor {
     price: number;
@@ -17,16 +17,18 @@ interface IOrderConstructor {
 
 const OrderConstructor: FC<IOrderConstructor> = ({price}) => {
     const order = useSelector((store: RootState) => store.currentOrderReducer.order);
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     const ingredients: IConstructorInitialState  = useSelector((store: RootState) => store.burgerConstructorReducer);
     const isAuth = useSelector((store: RootState) => store.userReducer.isAuth);
     const navigate = useNavigate();
 
     const closeModal = () => {
-        dispatch({type: RESET_ORDER});
+        dispatch(resetIngredient());
+        dispatch(resetOrder());
     }
 
     const sendOrder = () => {
+        isAuth ? console.log("AUTH") : console.log("UNAUTH")
         isAuth ? dispatch(makeOrder(ingredients)) : navigate('/login');
     }
 

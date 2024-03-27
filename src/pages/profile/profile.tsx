@@ -14,7 +14,7 @@ export default function ProfilePage() {
     const [input, setInput] = useState({name: false, email: false});
     const activeStyle = {color: "#f2f2f3",}
 
-    function profileFormSubmit(e: FormEvent<HTMLInputElement>) {
+    function profileFormSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         dispatch(changeUserData(userData));
     }
@@ -31,7 +31,6 @@ export default function ProfilePage() {
         return JSON.stringify(user) === JSON.stringify(userData);
     }
 
-    // @ts-ignore
     return (
         <section className="mt-[120px]">
             <div className="flex m-auto max-w-[1280px] gap-[60px]">
@@ -46,7 +45,7 @@ export default function ProfilePage() {
                             Профиль
                         </NavLink>
                         <NavLink
-                            to='order-page'
+                            to='orders'
                             className="text text_type_main-medium text_color_inactive flex min-h-[65px] items-center"
                             style={({isActive}) => (isActive ? activeStyle : undefined)}
                             state={{order: true}}
@@ -57,7 +56,7 @@ export default function ProfilePage() {
                         <NavLink
                             onClick={() => dispatch(logoutUser(() => navigate('/login')))}
                             className="text text_type_main-medium text_color_inactive flex min-h-[65px] items-center"
-                        >
+                            to={"/"}>
                             Выход
                         </NavLink>
                     </nav>
@@ -93,8 +92,9 @@ export default function ProfilePage() {
                             icon='EditIcon'
                             placeholder="Пароль"
                             disabled
-                            value='******'
-                        />
+                            value='******' onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+                            console.log("Function not implemented.");
+                        }}/>
                         <div className="flex flex-end">
                             <Button
                                 type='secondary'
